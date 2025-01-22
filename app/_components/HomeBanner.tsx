@@ -6,16 +6,44 @@ const oswald = Oswald({
     display: 'swap', // Control font-display
 });
 
+interface Movie {
+    adult: boolean;
+    backdrop_path: string;
+    genre_ids: number[]; // You can further define this if you have specific genres
+    id: number;
+    original_language: string;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    release_date: string;
+    title: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
+  }
+  
+  interface Dates {
+    maximum: string;
+    minimum: string;
+  }
+  
+  interface ApiResponse {
+    dates: Dates;
+    page: number;
+    results: Movie[];
+  }
+
 export default async function HomeBanner() {
     const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
-    const data = await res.json();
-    // console.log('data : ', data.results)
+    const data: ApiResponse = await res.json();
+    console.log('data : ', data)
     return (
         <div className="w-full">
             <div className="2xl:max-w-[1280px] mx-auto h-auto lg:flex justify-center-center" >
                 <div className="lg:grid grid-cols-5 w-full  hidden relative">
                     {
-                        data.results.slice(0, 5).map((x:any, y:any) => (
+                        data.results.slice(0, 5).map((x, y) => (
 
                             <div key={y} className="relative">
                                 <Image
