@@ -15,7 +15,7 @@ export default async function HomeBanner() {
             <div className="2xl:max-w-[1280px] mx-auto h-auto lg:flex justify-center-center" >
                 <div className="lg:grid grid-cols-5 w-full  hidden relative">
                     {
-                        data.results.slice(0, 5).map((x, y) => (
+                        data.results.slice(0, 5).map((x:any, y:any) => (
 
                             <div key={y} className="relative">
                                 <Image
@@ -35,7 +35,7 @@ export default async function HomeBanner() {
                 </div>
                 <div className="grid grid-cols-2  lg:hidden xl:hidden 2xl:hidden overflow-hidden relative">
                     {
-                        data.results.slice(0, 6).map((x, y) => (
+                        data.results.slice(0, 6).map((x:any, y:number) => (
 
                             <div key={y} className="relative bg-red-500 h-36">
 

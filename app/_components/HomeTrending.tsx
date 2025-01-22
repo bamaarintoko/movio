@@ -27,7 +27,7 @@ export default async function HomeTrending() {
                 <div>
 
                     <div className="w-full flex overflow-x-auto flex-nowrap space-x-5 px-10">
-                        {data.results.map((x, y) => (
+                        {data.results.map((x:any, y:number) => (
                             <div key={y} className="w-36 flex-shrink-0">
                                 <div key={y} className="relative">
                                     <Image

@@ -25,7 +25,7 @@ export default async function UpcomingMovies() {
             <div className="overflow-y-auto h-full space-y-2">
                 {
                     res.ok &&
-                    data.results.map((x, y) => (
+                    data.results.map((x:any, y:number) => (
                         <div key={y} className={`${poppins.className} relative`}>
                             <div className="rounded-b-xl absolute z-10 bottom-0 left-0 right-0 h-12 backdrop-blur-md bg-black/30 p-2">
                                 <p className="text-white text-sm font-bold"> {x.title}</p>
