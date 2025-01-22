@@ -63,7 +63,7 @@ export default async function HomeBanner() {
                 </div>
                 <div className="grid grid-cols-2  lg:hidden xl:hidden 2xl:hidden overflow-hidden relative">
                     {
-                        data.results.slice(0, 6).map((x:any, y:number) => (
+                        data.results.slice(0, 6).map((x, y) => (
 
                             <div key={y} className="relative bg-red-500 h-36">
 
