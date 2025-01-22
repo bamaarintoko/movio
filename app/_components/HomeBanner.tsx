@@ -1,4 +1,4 @@
-import { Oswald, Poppins } from "next/font/google";
+import { Oswald } from "next/font/google";
 import Image from "next/image";
 const oswald = Oswald({
     weight: ['400', '500', '700'], // Specify font weights

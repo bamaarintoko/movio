@@ -1,7 +1,7 @@
 // import Image from "next/image";
 
 export default async function UpcomingMovies() {
-    let res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
+    const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
     const data = await res.json();
     console.log('data : ', data.results)
     return (
