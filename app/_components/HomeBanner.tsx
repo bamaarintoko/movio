@@ -5,14 +5,9 @@ const oswald = Oswald({
     subsets: ['latin'], // Specify subsets (e.g., 'latin', 'latin-ext')
     display: 'swap', // Control font-display
 });
-const poppins = Poppins({
-    weight: ['400', '500', '700'], // Specify font weights
-    subsets: ['latin'], // Specify subsets (e.g., 'latin', 'latin-ext')
-    display: 'swap', // Control font-display
-});
 
 export default async function HomeBanner() {
-    let res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
+    const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
     const data = await res.json();
     // console.log('data : ', data.results)
     return (

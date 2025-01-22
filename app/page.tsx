@@ -1,9 +1,7 @@
 // import UpcomingMovies from "./_components/UpcomingMovies";
 
-import Image from "next/image";
-import UpcomingMovies from "./_components/UpcomingMovies";
 import { Poppins, Oswald } from 'next/font/google';
-import { Bars2Icon, Bars3Icon } from "@heroicons/react/20/solid";
+import {  Bars3Icon } from "@heroicons/react/20/solid";
 import HomeBanner from "./_components/HomeBanner";
 import HomeTrending from "./_components/HomeTrending";
 

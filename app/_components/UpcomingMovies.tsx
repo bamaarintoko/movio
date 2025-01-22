@@ -12,7 +12,7 @@ const poppins = Poppins({
     display: 'swap', // Control font-display
 });
 export default async function UpcomingMovies() {
-    let res = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}trending/movie/week?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}trending/movie/week?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
     const data = await res.json();
     console.log('data : ', data.results)
     console.log('res : ', res)

@@ -2,9 +2,8 @@ import { oswald, poppins } from "@/lib/fonts";
 import Image from "next/image";
 
 export default async function HomeTrending() {
-    let res = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}trending/movie/week?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}trending/movie/week?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
     const data = await res.json();
-    console.log('data : ', data.results)
     return (
         <div className="w-full">
             <div className="2xl:max-w-[1280px] mx-auto h-auto lg:flex justify-center-center flex-col" >
