@@ -39,7 +39,7 @@ export default async function HomePopular() {
                 <div className="flex gap-4 px-10 py-6">
                     <p className={`${oswald.className} text-2xl`}>
 
-                        What's Popular
+                        What&apos;s Popular
                     </p>
                     <Selector data={["Streaming", "On TV","For Rent","In Theaters"]} selected="Streaming" />
                 </div>
