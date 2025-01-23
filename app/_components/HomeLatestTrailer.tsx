@@ -2,14 +2,42 @@ import { oswald, poppins } from "@/lib/fonts";
 import Image from "next/image";
 import Selector from "./Selector";
 
+interface Movie {
+    adult: boolean;
+    backdrop_path: string;
+    genre_ids: number[]; // You can further define this if you have specific genres
+    id: number;
+    original_language: string;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    release_date: string;
+    title: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
+}
+
+interface Dates {
+    maximum: string;
+    minimum: string;
+}
+
+interface ApiResponse {
+    dates: Dates;
+    page: number;
+    results: Movie[];
+}
+
 export default async function HomeLatestTrailer() {
     const moviesResponse = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}movie/now_playing?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`);
-    const moviesData = await moviesResponse.json()
+    const moviesData : ApiResponse = await moviesResponse.json()
     const movies = moviesData.results || [];
     // console.log('moviesResponse : ', movies)
 
     const trailers = await Promise.all(
-        movies.map(async (movie: any) => {
+        movies.map(async (movie) => {
             const videoResponse = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}movie/${movie.id}/videos?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`);
             const videoData = await videoResponse.json();
             // console.log('videoData : ',videoData)
