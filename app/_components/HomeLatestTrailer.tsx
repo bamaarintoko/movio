@@ -29,17 +29,23 @@ interface ApiResponse {
     page: number;
     results: Movie[];
 }
-interface Video{
-    type:string;
-    site:string;
+interface Video {
+    type: string;
+    site: string;
+}
+
+interface Trailers {
+    title: string;
+    trailer_url: string;
+    backdrop_path: string;
 }
 export default async function HomeLatestTrailer() {
     const moviesResponse = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}movie/now_playing?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`);
-    const moviesData : ApiResponse = await moviesResponse.json()
+    const moviesData: ApiResponse = await moviesResponse.json()
     const movies = moviesData.results || [];
     // console.log('moviesResponse : ', movies)
 
-    const trailers = await Promise.all(
+    const trailers: Trailers[] = (await Promise.all(
         movies.map(async (movie) => {
             const videoResponse = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}movie/${movie.id}/videos?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`);
             const videoData = await videoResponse.json();
@@ -57,7 +63,7 @@ export default async function HomeLatestTrailer() {
 
             return null; // No trailer available
         })
-    )
+    )).filter((trailer): trailer is Trailers => trailer !== null);
 
     console.log('trailers : ', trailers)
 
@@ -70,8 +76,8 @@ export default async function HomeLatestTrailer() {
                         Latest Trailer
                     </p>
 
-                    
-                    <Selector data={["Popular", "Streaming","On TV","For Rent","In Theaters"]} selected="Popular" />
+
+                    <Selector data={["Popular", "Streaming", "On TV", "For Rent", "In Theaters"]} selected="Popular" />
                 </div>
                 <div>
                     <div className="w-full flex overflow-x-auto flex-nowrap space-x-5 px-10">
