@@ -29,7 +29,10 @@ interface ApiResponse {
     page: number;
     results: Movie[];
 }
-
+interface Video{
+    type:string;
+    site:string;
+}
 export default async function HomeLatestTrailer() {
     const moviesResponse = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}movie/now_playing?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`);
     const moviesData : ApiResponse = await moviesResponse.json()
@@ -42,7 +45,7 @@ export default async function HomeLatestTrailer() {
             const videoData = await videoResponse.json();
             // console.log('videoData : ',videoData)
             const trailer = videoData.results.find(
-                (video: any) => video.type === "Trailer" && video.site === "YouTube"
+                (video: Video) => video.type === "Trailer" && video.site === "YouTube"
             );
             if (trailer) {
                 return {

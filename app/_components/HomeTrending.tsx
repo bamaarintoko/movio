@@ -1,5 +1,4 @@
 import { oswald, poppins } from "@/lib/fonts";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Selector from "./Selector";
 
