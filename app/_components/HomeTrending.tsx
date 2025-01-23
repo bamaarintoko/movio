@@ -1,5 +1,7 @@
 import { oswald, poppins } from "@/lib/fonts";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
+import Selector from "./Selector";
 
 interface Movie {
     adult: boolean;
@@ -40,17 +42,7 @@ export default async function HomeTrending() {
 
                         Trending
                     </p>
-
-                    <div className="flex border border-[#001F3F] rounded-full gap-2">
-                        <div className="bg-[#001F3F] border-[#001F3F] flex items-center px-4 border rounded-full">
-
-                            <p className={`${poppins.className} text-white`}>Today</p>
-                        </div>
-                        <div className="flex items-center px-4">
-
-                            <p className={`${poppins.className} text-[#001F3F]`}>This Week</p>
-                        </div>
-                    </div>
+                    <Selector data={['Today', 'This Week']} selected="Today"/>
                 </div>
                 <div>
 
@@ -64,7 +56,7 @@ export default async function HomeTrending() {
                                         alt="Movie Poster"
                                         width={150} // TMDB size
                                         height={225} // Maintain aspect ratio (300:450)
-                                        className="object-cover"
+                                        className="object-cover rounded-md"
                                     />
                                 </div>
                                 <div>
