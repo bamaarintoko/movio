@@ -41,7 +41,7 @@ export default async function HomePopular() {
 
                         What's Popular
                     </p>
-                    <Selector data={['Streaming', 'On TV','For Rent','In Theaters']} selected="Streaming" />
+                    <Selector data={["Streaming", "On TV","For Rent","In Theaters"]} selected="Streaming" />
                 </div>
                 <div>
         

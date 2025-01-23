@@ -11,7 +11,7 @@ export default function HomeFreeToWatch() {
                     Free To Watch
 
                     </p>
-                    <Selector data={['Movies', 'TV']} selected="Movies" />
+                    <Selector data={["Movies", "TV"]} selected="Movies" />
                 </div>
                 {/* <div>
         

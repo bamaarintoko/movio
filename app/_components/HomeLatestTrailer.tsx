@@ -71,7 +71,7 @@ export default async function HomeLatestTrailer() {
                     </p>
 
                     
-                    <Selector data={['Popular', 'Streaming','On TV','For Rent','In Theaters']} selected="Popular" />
+                    <Selector data={["Popular", "Streaming","On TV","For Rent","In Theaters"]} selected="Popular" />
                 </div>
                 <div>
                     <div className="w-full flex overflow-x-auto flex-nowrap space-x-5 px-10">
