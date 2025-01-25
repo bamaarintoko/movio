@@ -1,25 +1,51 @@
 'use client'
 import { poppins } from "@/lib/fonts";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+interface Selectors {
+    label: string;
+    value: string;
+}
+
 type SelectorProps = {
-    data: string[]; // Define the prop as an array of strings
-    selected?: string
+    data: Selectors[]; // Define the prop as an array of strings
+    onChange: (value: string) => string
 };
-export default function Selector({ data, selected }: SelectorProps) {
+export default function Selector({ data, onChange }: SelectorProps) {
     const [open, setOpen] = useState(false)
+    const [selected, setSelected] = useState({ label: 'Today', value: 'day' })
+    const isFirstRender = useRef(true); // Track the first render
     const handleOpen = () => {
         setOpen(!open)
     }
-    console.log("open : ", open)
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false; // Set it to false after the first render
+            return;
+        }
+
+        // console.log('selected : ', selected)
+        // if (selected) {
+
+        if (typeof onChange !== 'function') {
+            console.log('onChange is not a function');
+        } else {
+            onChange(selected);
+        }
+        // }
+    }, [selected]);
+
+    // console.log("open : ", 0.1+0.2)
     return (
         <div className=" h-7 z-10 ">
             <div className="lg:flex xl:flex 2xl:flex border border-[#001F3F] rounded-full gap-2 hidden h-full">
                 {
                     data.map((menu, y: number) => (
-                        <div key={y} className={`${menu === selected ? "bg-[#001F3F] border-[#001F3F] border" : ""} flex items-center px-4 rounded-full`}>
+                        <div onClick={() => setSelected(menu)} key={y} className={`${menu.label === selected.label ? "bg-[#001F3F] border-[#001F3F] border" : ""} flex items-center px-4 rounded-full cursor-pointer`}>
 
-                            <p className={`${poppins.className} ${menu === selected ? "text-white" : "text-[#001F3F]"}`}>{menu}</p>
+                            <p className={`${poppins.className} ${menu.label === selected.label ? "text-white" : "text-[#001F3F]"}`}>{menu.label}</p>
                         </div>
                     ))
                 }
@@ -30,7 +56,7 @@ export default function Selector({ data, selected }: SelectorProps) {
 
                     <div>
 
-                        <p className={`${poppins.className} text-white`}>Today</p>
+                        <p className={`${poppins.className} text-white`}>{selected.label}</p>
                     </div>
                     <div>
                         <ChevronDownIcon className="size-6 text-white" />
@@ -42,8 +68,11 @@ export default function Selector({ data, selected }: SelectorProps) {
                     <div className="absolute bg-blue-900 left-0 right-0 z-20 rounded-b-2xl">
                         {
                             data.map((menu, y: number) => (
-                                <div key={y} className="px-4  h-7 flex items-center overflow-hidden">
-                                    <p className={`${poppins.className} text-white`}>{menu}</p>
+                                <div onClick={() => {
+                                    setSelected(menu)
+                                    setOpen(!open)
+                                }} key={y} className="px-4  h-7 flex items-center overflow-hidden">
+                                    <p className={`${poppins.className} text-white`}>{menu.label}</p>
                                 </div>
 
                             ))

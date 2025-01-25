@@ -3,10 +3,10 @@
 import { Poppins, Oswald } from 'next/font/google';
 import {  Bars3Icon } from "@heroicons/react/20/solid";
 import HomeBanner from "./_components/HomeBanner";
-import HomeTrending from "./_components/HomeTrending";
 import HomeLatestTrailer from './_components/HomeLatestTrailer';
 import HomePopular from './_components/HomePopular';
 import HomeFreeToWatch from './_components/HomeFreeToWatch';
+import { ServerHomeTrending } from './_components/ServerHomeTrending';
 
 const oswald = Oswald({
     weight: ['400', '500', '700'], // Specify font weights
@@ -46,7 +46,7 @@ export default function Home() {
                 </div> */}
             </div>
             <HomeBanner/>
-            <HomeTrending/>
+            <ServerHomeTrending/>
             <HomeLatestTrailer/>
             <HomePopular/>
             <HomeFreeToWatch/>

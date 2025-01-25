@@ -1,6 +1,15 @@
 import { oswald } from "@/lib/fonts";
 import Selector from "./Selector";
-
+const selectorArr = [
+    {
+        label: "Movies",
+        value: ""
+    },
+    {
+        label: "TV",
+        value: ""
+    }
+]
 export default function HomeFreeToWatch() {
     return (
         <div className="w-full">
@@ -8,10 +17,10 @@ export default function HomeFreeToWatch() {
                 <div className="flex gap-4 px-10 py-6">
                     <p className={`${oswald.className} text-2xl`}>
 
-                    Free To Watch
+                        Free To Watch
 
                     </p>
-                    <Selector data={["Movies", "TV"]} selected="Movies" />
+                    <Selector data={selectorArr} />
                 </div>
                 {/* <div>
         

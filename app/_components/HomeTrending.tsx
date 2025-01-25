@@ -1,8 +1,10 @@
+'use client'
 import { oswald, poppins } from "@/lib/fonts";
 import Image from "next/image";
 import Selector from "./Selector";
+import { useEffect, useState } from "react";
 
-interface Movie {
+type Movie = {
     adult: boolean;
     backdrop_path: string;
     genre_ids: number[]; // You can further define this if you have specific genres
@@ -19,20 +21,58 @@ interface Movie {
     vote_count: number;
 }
 
-interface Dates {
-    maximum: string;
-    minimum: string;
+interface HomeTrendingProps {
+    data: Movie[]; // Accept only the array of movies
+}
+interface Selectors {
+    label: string;
+    value: string;
 }
 
 interface ApiResponse {
-    dates: Dates;
     page: number;
     results: Movie[];
 }
 
-export default async function HomeTrending() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}trending/movie/week?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
-    const data: ApiResponse = await res.json();
+const arrSelector = [
+    {
+        label: 'Today',
+        value: 'day'
+    },
+    {
+        label: 'This Week',
+        value: 'week'
+    }
+]
+
+export default function HomeTrending({ data }: HomeTrendingProps) {
+    const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
+
+    useEffect(()=>{
+        setPopularMovies(data)
+        console.log('data : ',data)
+    },[data])
+
+    const syncPopular = async (params: Selectors) => {
+        try {
+
+            const response = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}trending/movie/${params.value}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`);
+            const data: ApiResponse = await response.json();
+            setPopularMovies(data.results)
+            console.log('response : ', data)
+            console.log('params : ', params)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleChange = () => (value: string) => {
+        console.log(value)
+        // setInputValue(value); // Update the input value state
+        syncPopular(value); // Call syncPopular with the value
+    };
+    // const data : ApiResponse = datas
+    // console.log('dataaaaa : ',data)
     return (
         <div className="w-full">
             <div className="2xl:max-w-[1280px] mx-auto h-auto lg:flex justify-center-center flex-col" >
@@ -41,12 +81,12 @@ export default async function HomeTrending() {
 
                         Trending
                     </p>
-                    <Selector data={['Today', 'This Week']} selected="Today"/>
+                    <Selector data={arrSelector} onChange={handleChange()} />
                 </div>
                 <div>
 
                     <div className="w-full flex overflow-x-auto flex-nowrap space-x-5 px-10">
-                        {data.results.map((x, y) => (
+                        {popularMovies.map((x, y) => (
                             <div key={y} className="w-36 flex-shrink-0">
                                 <div key={y} className="relative">
                                     <Image

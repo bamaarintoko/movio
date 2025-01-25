@@ -39,6 +39,29 @@ interface Trailers {
     trailer_url: string;
     backdrop_path: string;
 }
+
+const selectorArr = [
+    {
+        label: "Popular",
+        value: ""
+    },
+    {
+        label: "Streaming",
+        value: ""
+    },
+    {
+        label: "On TV",
+        value: ""
+    },
+    {
+        label: "For Rent",
+        value: ""
+    },
+    {
+        label: "In Theaters",
+        value: ""
+    }
+]
 export default async function HomeLatestTrailer() {
     const moviesResponse = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}movie/now_playing?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`);
     const moviesData: ApiResponse = await moviesResponse.json()
@@ -77,7 +100,7 @@ export default async function HomeLatestTrailer() {
                     </p>
 
 
-                    <Selector data={["Popular", "Streaming", "On TV", "For Rent", "In Theaters"]} selected="Popular" />
+                    <Selector data={selectorArr}  />
                 </div>
                 <div>
                     <div className="w-full flex overflow-x-auto flex-nowrap space-x-5 px-10">
