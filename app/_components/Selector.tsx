@@ -10,11 +10,11 @@ interface Selectors {
 
 type SelectorProps = {
     data: Selectors[]; // Define the prop as an array of strings
-    onChange?: (value: string) => string
+    onChange?: (value: Selectors) => void
 };
-export default function Selector({ data, onChange }: SelectorProps) {
+export default function Selector({ data, onChange = () => { } }: SelectorProps) {
     const [open, setOpen] = useState(false)
-    const [selected, setSelected] = useState({ label: 'Today', value: 'day' })
+    const [selected, setSelected] = useState<Selectors>({ label: 'Today', value: 'day' })
     const isFirstRender = useRef(true); // Track the first render
     const handleOpen = () => {
         setOpen(!open)
@@ -25,15 +25,7 @@ export default function Selector({ data, onChange }: SelectorProps) {
             isFirstRender.current = false; // Set it to false after the first render
             return;
         }
-
-        // console.log('selected : ', selected)
-        // if (selected) {
-
-        if (typeof onChange !== 'function') {
-            console.log('onChange is not a function');
-        } else {
-            onChange(selected);
-        }
+        onChange(selected);
         // }
     }, [selected]);
 

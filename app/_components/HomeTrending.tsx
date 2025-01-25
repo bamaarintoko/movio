@@ -66,8 +66,8 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
         }
     }
 
-    const handleChange = () => (value: string) => {
-        console.log(value)
+    const handleChange = () => (value: Selectors) => {
+        // console.log(value)
         // setInputValue(value); // Update the input value state
         syncPopular(value); // Call syncPopular with the value
     };
