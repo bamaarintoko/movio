@@ -20,7 +20,7 @@ export default function HomeFreeToWatch() {
                         Free To Watch
 
                     </p>
-                    <Selector data={selectorArr} />
+                    <Selector data={selectorArr}/>
                 </div>
                 {/* <div>
         

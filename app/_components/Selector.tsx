@@ -10,7 +10,7 @@ interface Selectors {
 
 type SelectorProps = {
     data: Selectors[]; // Define the prop as an array of strings
-    onChange: (value: string) => string
+    onChange?: (value: string) => string
 };
 export default function Selector({ data, onChange }: SelectorProps) {
     const [open, setOpen] = useState(false)
