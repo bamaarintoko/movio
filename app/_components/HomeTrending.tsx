@@ -76,7 +76,7 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
     return (
         <div className="w-full">
             <div className="2xl:max-w-[1280px] mx-auto h-auto lg:flex justify-center-center flex-col" >
-                <div className="flex gap-4 px-10 py-6">
+                <div className="flex gap-4 lg:px-10 xl:px-10 2xl:px-10 px-4 py-6">
                     <p className={`${oswald.className} text-2xl`}>
 
                         Trending
@@ -85,7 +85,7 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
                 </div>
                 <div>
 
-                    <div className="w-full flex overflow-x-auto flex-nowrap space-x-5 px-10">
+                    <div className="w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4">
                         {popularMovies.map((x, y) => (
                             <div key={y} className="w-36 flex-shrink-0">
                                 <div key={y} className="relative">
