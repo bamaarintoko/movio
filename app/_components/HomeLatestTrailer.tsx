@@ -136,7 +136,7 @@ export default function HomeLatestTrailer() {
         const inTheatersData: ApiResponse = await response.json()
         const inTheaters = inTheatersData.results || []
         if (response.ok) {
-            console.log('inTheaters : ',inTheaters)
+            console.log('inTheaters : ', inTheaters)
             syncTrailers(inTheaters)
         }
         // console.log()
@@ -158,7 +158,7 @@ export default function HomeLatestTrailer() {
             }
             // console.log('rentsData : ', rentsData)
         } catch (error) {
-
+            console.log('err : ', error)
         }
     }
 
@@ -172,7 +172,7 @@ export default function HomeLatestTrailer() {
             // console.log('syncOnTv ', movies)
             syncTrailersForTv(movies)
         } catch (error) {
-
+            console.log('err : ', error)
         }
     }
     const syncStreaming = async () => {
@@ -184,7 +184,7 @@ export default function HomeLatestTrailer() {
             syncTrailers(movies)
             console.log('syncStreaming : ', movies)
         } catch (error) {
-
+            console.log('err : ', error)
         }
     }
 
@@ -196,7 +196,7 @@ export default function HomeLatestTrailer() {
             syncTrailers(movies)
             // console.log('movies : ', movies)
         } catch (error) {
-
+            console.log('err : ', error)
         }
     }
 
@@ -268,7 +268,7 @@ export default function HomeLatestTrailer() {
                             // console.log('aaa')
                         }
                     } catch (error) {
-                        // console.log('error : ', error)
+                        console.log('error : ', error)
                         return { title: movie.title, trailer_url: "", backdrop_path: movie.backdrop_path };
                     }
 
@@ -278,7 +278,7 @@ export default function HomeLatestTrailer() {
             setTrailers(trailers)
             // console.log('trailers : ', trailers)
         } catch (error) {
-
+            console.log('err : ', error)
         }
     }
 
