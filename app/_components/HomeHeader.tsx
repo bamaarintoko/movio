@@ -67,7 +67,7 @@ export default function HomeHeader() {
                 <div className={`fixed inset-0 bg-gray-500/75 transition-opacity ease-in-out duration-500 ${open ? "opacity-100 pointer-events-none" : "opacity-0 pointer-events-none"
                     }`} aria-hidden="true"></div>
 
-                <div className="fixed inset-0 overflow-hidden">
+                <div className="fixed overflow-hidden">
                     <div className="absolute inset-0 overflow-hidden">
                         <div className="pointer-events-none fixed inset-y-0 flex max-w-full pr-10">
                             {/* <!--
