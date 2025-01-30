@@ -43,7 +43,7 @@ export default function HomeHeader() {
                     {
                         !open
                         &&
-                        <div className="pointer z-30" onClick={handleDrawer}>
+                        <div className="pointer z-10" onClick={handleDrawer}>
                             <Bars3Icon className="size-6 text-white" />
                         </div>
                     }
@@ -102,12 +102,20 @@ export default function HomeHeader() {
                                     </button>
                                 </div>
 
-                                <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-                                    <div className="px-4 sm:px-6">
-                                        <h2 className="text-base font-semibold text-gray-900" id="slide-over-title">Panel title</h2>
-                                    </div>
-                                    <div className="relative mt-6 flex-1 px-4 sm:px-6">
+                                <div className="flex h-full flex-col overflow-y-auto bg-[#001F3F] py-6 shadow-xl">
+                                    <div className="relative mt-6 flex-1 px-4 sm:px-6 ">
                                         {/* <!-- Your content --> */}
+                                        <div className={`${poppins.className} flex text-white gap-8 font-bold text-lg flex-col`}>
+                                            <div onClick={() => console.log('movie')}>
+                                                <p>Movie</p>
+                                            </div>
+                                            <div onClick={() => console.log('tv shows')}>
+                                                <p>TV Shows</p>
+                                            </div>
+                                            <div onClick={() => console.log('people')}>
+                                                <p>People</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
