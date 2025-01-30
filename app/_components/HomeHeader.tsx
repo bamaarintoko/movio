@@ -4,7 +4,7 @@ import { Bars3Icon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 
 export default function HomeHeader() {
-    const [open, setOpen] = useState<any>(false)
+    const [open, setOpen] = useState<boolean>(false)
 
     const handleDrawer = () => {
         // console.log('qweqeqwe')
