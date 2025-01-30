@@ -1,10 +1,25 @@
 'use client'
 import { oswald, poppins } from "@/lib/fonts";
 import { Bars3Icon } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function HomeHeader() {
     const [open, setOpen] = useState<boolean>(false)
+
+    useEffect(() => {
+        if (open) {
+            // Disable scrolling when the panel is open
+            document.body.style.overflow = "hidden";
+        } else {
+            // Enable scrolling when the panel is closed
+            document.body.style.overflow = "auto";
+        }
+
+        // Clean up the effect when the component unmounts
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [open]);
 
     const handleDrawer = () => {
         // console.log('qweqeqwe')
@@ -49,7 +64,7 @@ export default function HomeHeader() {
                 From: "opacity-100"
                 To: "opacity-0"
   --> */}
-                <div className={`fixed inset-0 bg-gray-500/75 transition-opacity ease-in-out duration-500 ${open ? "opacity-100" : "opacity-0 pointer-events-none"
+                <div className={`fixed inset-0 bg-gray-500/75 transition-opacity ease-in-out duration-500 ${open ? "opacity-100 pointer-events-none" : "opacity-0 pointer-events-none"
                     }`} aria-hidden="true"></div>
 
                 <div className="fixed inset-0 overflow-hidden">
