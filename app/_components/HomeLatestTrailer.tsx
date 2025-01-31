@@ -3,6 +3,7 @@ import { oswald, poppins } from "@/lib/fonts";
 import Image from "next/image";
 import Selector from "./Selector";
 import { useEffect, useState } from "react";
+import { PhotoIcon } from "@heroicons/react/20/solid";
 
 interface Movie {
     adult: boolean;
@@ -298,23 +299,38 @@ export default function HomeLatestTrailer() {
 
                     <Selector data={selectorArr} onChange={handleChange()} />
                 </div>
-                <div>
+                <div className="h-[13.5rem] ">
+
                     <div className="w-full flex overflow-x-auto flex-nowrap space-x-5 lg:px-10 xl:px-10 2xl:px-10 px-4">
                         {
+                            trailers.length < 1 &&
+                            Array.from({ length: 20 }).map((_, y: number) => (
+                                <div key={y} className="w-72 flex-shrink-0 space-y-2">
+                                    <div className="relative h-40 bg-slate-100 rounded-md animate-pulse flex items-center justify-center">
+                                        <PhotoIcon className="size-6" />
+                                    </div>
+                                    <div className="h-14 space-y-2">
+                                        <div className="h-2 bg-slate-100 rounded-md animate-pulse" />
+                                        <div className="h-2 bg-slate-100 rounded-md animate-pulse" />
+                                    </div>
+                                </div>
+                            ))
+                        }
+                        {trailers.length > 0 &&
                             trailers.map((data, y) => (
                                 <div key={y} className="w-72 flex-shrink-0">
-                                    <div className="relative">
+                                    <div className="relative h-40">
                                         <Image
                                             priority
                                             src={`https://image.tmdb.org/t/p/w355_and_h200_smart${data.backdrop_path}`} // Replace with your dynamic poster path
                                             alt="Movie Poster"
-                                            width={300} // TMDB size
-                                            height={168.54} // Maintain aspect ratio (300:450)
-                                            className="object-cover rounded-lg"
+                                            fill
+                                            style={{ objectFit: "cover" }}
+                                            className="object-cover rounded-md"
                                         />
                                     </div>
-                                    <div>
-                                        <p className={`${poppins} font-semibold`}>
+                                    <div className="h-14">
+                                        <p className={`${poppins} font-semibold line-clamp-2`}>
 
                                             {data.title}
                                         </p>
