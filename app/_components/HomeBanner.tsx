@@ -73,6 +73,8 @@ export default async function HomeBanner() {
                                     alt="Movie Poster"
                                     fill
                                     style={{ objectFit: "cover" }}
+                                    priority
+                                    // loading="lazy"
                                 // width={300} // TMDB size
                                 // height={450} // Maintain aspect ratio (300:450)
                                 // className="object-cover"

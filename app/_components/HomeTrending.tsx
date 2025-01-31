@@ -3,6 +3,7 @@ import { oswald, poppins } from "@/lib/fonts";
 import Image from "next/image";
 import Selector from "./Selector";
 import { useEffect, useState } from "react";
+import { PhotoIcon } from "@heroicons/react/20/solid";
 
 type Movie = {
     adult: boolean;
@@ -48,10 +49,10 @@ const arrSelector = [
 export default function HomeTrending({ data }: HomeTrendingProps) {
     const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         setPopularMovies(data)
-        console.log('data : ',data)
-    },[data])
+        console.log('data : ', data)
+    }, [data])
 
     const syncPopular = async (params: Selectors) => {
         try {
@@ -75,7 +76,7 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
     // console.log('dataaaaa : ',data)
     return (
         <div className="w-full">
-            <div className="2xl:max-w-[1280px] mx-auto h-auto lg:flex justify-center-center flex-col" >
+            <div className="2xl:max-w-[1280px] mx-auto lg:flex justify-center-center flex-col" >
                 <div className="flex gap-4 lg:px-10 xl:px-10 2xl:px-10 px-4 py-6">
                     <p className={`${oswald.className} text-2xl`}>
 
@@ -83,30 +84,48 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
                     </p>
                     <Selector data={arrSelector} onChange={handleChange()} />
                 </div>
-                <div>
-
-                    <div className="w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4">
-                        {popularMovies.map((x, y) => (
-                            <div key={y} className="w-36 flex-shrink-0">
-                                <div key={y} className="relative">
-                                    <Image
-                                        priority
-                                        src={`https://image.tmdb.org/t/p/w220_and_h330_smart${x.poster_path}`} // Replace with your dynamic poster path
-                                        alt="Movie Poster"
-                                        width={150} // TMDB size
-                                        height={225} // Maintain aspect ratio (300:450)
-                                        className="object-cover rounded-md"
-                                    />
+                <div className="relative h-[calc(14rem+3.7rem)]">
+                    {
+                        popularMovies.length < 1
+                        &&
+                        <div className="absolute w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4 h-[calc(14rem+3.7rem)] ">
+                            {Array.from({ length: 20 }).map((x, y: number) => (
+                                <div key={y} className="w-36 flex-shrink-0 space-y-2">
+                                    <div key={y} className="relative h-56 bg-slate-100 rounded-md animate-pulse flex items-center justify-center">
+                                        <PhotoIcon className="size-6" />
+                                    </div>
+                                    <div className=" h-10 bg-slate-100 rounded-md animate-pulse">
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className={`${poppins.className} font-bold text-[16px]`}>
+                            ))}
+                        </div>
+                    }
+                    {
+                        popularMovies.length > 0
+                        &&
+                        <div className="w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4 h-[calc(14rem+3.7rem)] ">
+                            {popularMovies.map((x, y) => (
+                                <div key={y} className="w-36 flex-shrink-0">
+                                    <div key={y} className="relative h-56">
+                                        <Image
+                                            priority
+                                            src={`https://image.tmdb.org/t/p/w220_and_h330_smart${x.poster_path}`} // Replace with your dynamic poster path
+                                            alt="Movie Poster"
+                                            fill
+                                            style={{ objectFit: "cover" }}
+                                            className="object-cover rounded-md"
+                                        />
+                                    </div>
+                                    <div className=" h-14">
+                                        <p className={`${poppins.className} font-bold text-sm line-clamp-2`}>
 
-                                        {x.title}
-                                    </p>
+                                            {x.title}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    }
                 </div>
             </div>
         </div>
