@@ -74,7 +74,7 @@ export default async function HomeBanner() {
                                     fill
                                     style={{ objectFit: "cover" }}
                                     priority
-                                    // loading="lazy"
+                                // loading="lazy"
                                 // width={300} // TMDB size
                                 // height={450} // Maintain aspect ratio (300:450)
                                 // className="object-cover"
@@ -87,30 +87,39 @@ export default async function HomeBanner() {
                         <h2 className={`${oswald.className} text-4xl font-bold bg-gradient-to-r from-[#9dcba4] from-1% via-[#1E90FF] via-50% to-[#87CEFA] to-100% bg-clip-text text-transparent`}>MOVIO <br />Discover Movies, Anytime, Anywhere.</h2>
                     </div>
                 </div>
+                <div className="grid grid-cols-2 absolute left-0 right-0 lg:hidden xl:hidden 2xl:hidden overflow-hidden h-[27rem] ">
+                   
+                    {
+                        Array.from({ length: 6 }).map((_, y: number) => (
+                            <div key={y} className="flex items-center justify-center  h-36 w-full animate-pulse">
+                                <PhotoIcon className="size-10 animate-pulse" />
+                            </div>
+                        ))
+                    }
+                    <div className="absolute inset-0 backdrop-brightness-50 bg-black/30 flex items-center px-4">
+                        <h2 className={`${oswald.className} text-4xl font-bold bg-gradient-to-r from-[#9dcba4] from-1% via-[#1E90FF] via-50% to-[#87CEFA] to-100% bg-clip-text text-transparent`}>MOVIO <br />Discover Movies, Anytime, Anywhere.</h2>
+                    </div>
+                </div>
                 {
                     res.ok
                     &&
-                    <div className="grid grid-cols-2  lg:hidden xl:hidden 2xl:hidden overflow-hidden relative">
+                    <div className="grid grid-cols-2  lg:hidden xl:hidden 2xl:hidden overflow-hidden relative h-[27rem]">
                         {
                             data.results.slice(0, 6).map((x, y) => (
 
-                                <div key={y} className="relative bg-red-500 h-36">
+                                <div key={y} className="relative  h-36">
 
                                     <Image
                                         src={`https://image.tmdb.org/t/p/w300_and_h300_smart${x.poster_path}`}// Replace with your dynamic poster path
                                         alt="Movie Poster"
-                                        width={300} // TMDB size
-                                        height={300} // Maintain aspect ratio (300:450)
-                                    // className="object-cover"
+                                        fill
+                                        style={{ objectFit: "cover" }}
+                                        priority
                                     />
-                                    {/* <div className="absolute inset-0 backdrop-brightness-50 bg-black/30">
-        
-        </div> */}
                                 </div>
                             ))
                         }
                         <div className="absolute inset-0 backdrop-brightness-50 bg-black/30 flex items-center px-4">
-
                             <h2 className={`${oswald.className} text-4xl font-bold bg-gradient-to-r from-[#9dcba4] from-1% via-[#1E90FF] via-50% to-[#87CEFA] to-100% bg-clip-text text-transparent`}>MOVIO <br />Discover Movies, Anytime, Anywhere.</h2>
                         </div>
                     </div>
