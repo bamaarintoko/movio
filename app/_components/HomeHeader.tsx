@@ -54,6 +54,7 @@ export default function HomeHeader() {
             </div>
 
             <div className="relative z-20" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+                <h2 id="slide-over-title" className="sr-only">Navigation Panel</h2>
                 {/* <!--
                 Background backdrop, show/hide based on slide-over state.
 
