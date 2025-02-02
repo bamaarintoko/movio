@@ -8,13 +8,18 @@ import HomeHeader from './_components/HomeHeader';
 
 export default function Home() {
     return (
-        <div className="flex flex-col overflow-y-auto h-full" >
-            <HomeHeader/>
-            <HomeBanner/>
-            <ServerHomeTrending/>
-            <HomeLatestTrailer/>
-            <HomePopular/>
-            <HomeFreeToWatch/>
+        <div className="flex flex-col h-full" >
+            <div className=" sticky top-0 z-20">
+                <HomeHeader />
+            </div>
+            <div className="relative h-full overflow-y-auto">
+
+                <HomeBanner />
+                <ServerHomeTrending />
+                <HomeLatestTrailer />
+                <HomePopular />
+                <HomeFreeToWatch />
+            </div>
 
         </div >
     )

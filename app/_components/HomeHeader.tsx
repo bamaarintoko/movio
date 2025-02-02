@@ -1,10 +1,58 @@
 'use client'
 import { oswald, poppins } from "@/lib/fonts";
 import { Bars3Icon } from "@heroicons/react/20/solid";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
 
 export default function HomeHeader() {
     const [open, setOpen] = useState<boolean>(false)
+
+    const [hidden, setHidden] = useState(false);
+    // const [lastScrollY, setLastScrollY] = useState(0);
+    const [hideTimeout, setHideTimeout] = useState<NodeJS.Timeout | null>(null);
+    const lastScrollY = useRef(0);
+    const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+
+    useEffect(() => {
+
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY.current) {
+                // console.log("scrolling down");
+                if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+
+                scrollTimeout.current = setTimeout(() => {
+                    setHidden(true)
+                    console.log("No scroll down activity for 2000ms after scrolling");
+                }, 500);
+            } else {
+                setHidden(false)
+                // console.log("scrolling up");
+                if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+
+                scrollTimeout.current = setTimeout(() => {
+                    console.log("No scroll up activity for 2000ms after scrolling");
+                }, 500);
+            }
+
+
+            lastScrollY.current = currentScrollY
+            // setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+        };
+    }, [lastScrollY]);
+
+
+    useEffect(() => {
+        console.log('hidden : ', hidden)
+        console.log('hideTimeout : ', hideTimeout)
+    }, [hidden, hideTimeout])
 
     useEffect(() => {
         if (open) {
@@ -28,7 +76,13 @@ export default function HomeHeader() {
     return (
         <div>
 
-            <div className="h-14 bg-[#001F3F] ">
+            <motion.div
+                className="h-14 bg-[#001F3F]"
+                // animate={{ scale: 1.2 }}
+                initial={{ y: 0 }}
+                animate={{ y: hidden ? "-100%" : "0%" }}
+                transition={{ duration: 1, type: 'spring' }}
+            >
                 <div className="2xl:max-w-[1280px] h-14 mx-auto lg:flex items-center px-10 hidden" >
                     <div className={`${oswald.className} mr-10`}>
                         <p className="text-xl font-bold text-white">MOVIO</p>
@@ -51,7 +105,7 @@ export default function HomeHeader() {
                         <p className="text-xl font-bold text-white">MOVIO</p>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             <div className="relative z-20" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
                 <h2 id="slide-over-title" className="sr-only">Navigation Panel</h2>

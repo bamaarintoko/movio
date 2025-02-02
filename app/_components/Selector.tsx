@@ -2,7 +2,7 @@
 import { poppins } from "@/lib/fonts";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useEffect, useRef, useState } from "react";
-
+import { motion } from "motion/react";
 interface Selectors {
     label: string;
     value: string;
@@ -19,7 +19,10 @@ export default function Selector({ data, onChange = () => { } }: SelectorProps) 
     const handleOpen = () => {
         setOpen(!open)
     }
-
+    useEffect(() => {
+        setSelected(data[0])
+        console.log('qeqeqe ', data[0])
+    }, [data])
     useEffect(() => {
         if (isFirstRender.current) {
             isFirstRender.current = false; // Set it to false after the first render
@@ -44,7 +47,11 @@ export default function Selector({ data, onChange = () => { } }: SelectorProps) 
             </div>
             {/* lg:hidden xl:hidden 2xl:hidden h-full */}
             <div className=" bg-[#001F3F] border-[#001F3F]border h-full rounded-2xl relative lg:hidden xl:hidden 2xl:hidden">
-                <div onClick={handleOpen} className={`${open === true ? "rounded-t-2xl" : "rounded-2xl"} bg-[#001F3F] border-[#001F3F] gap-4 items-center flex h-full px-4 z-30`}>
+                <motion.div onClick={handleOpen}
+                    className={` bg-[#001F3F] border-[#001F3F] gap-4 items-center flex h-full px-4 z-30`}
+                    animate={{ borderRadius: open ? "16px 16px 0px 0px" : "16px" }} // Smooth border radius change
+                    transition={{ duration: 0.3, type: "spring" }}
+                >
 
                     <div>
 
@@ -53,24 +60,30 @@ export default function Selector({ data, onChange = () => { } }: SelectorProps) 
                     <div>
                         <ChevronDownIcon className="size-6 text-white" />
                     </div>
-                </div>
-                {
-                    open
-                    &&
-                    <div className="absolute bg-blue-900 left-0 right-0 z-20 rounded-b-2xl">
-                        {
-                            data.map((menu, y: number) => (
-                                <div onClick={() => {
-                                    setSelected(menu)
-                                    setOpen(!open)
-                                }} key={y} className="px-4  h-7 flex items-center overflow-hidden">
-                                    <p className={`${poppins.className} text-white`}>{menu.label}</p>
-                                </div>
+                </motion.div>
 
-                            ))
-                        }
-                    </div>
-                }
+
+                {/* Dropdown Menu */}
+                <motion.div
+                    className="absolute bg-blue-900 left-0 right-0 z-20 rounded-b-2xl overflow-hidden"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: open ? 1 : 0, y: open ? 0 : -10 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3, type: "spring" }}
+                >
+                    {
+                        data.map((menu, y: number) => (
+                            <div onClick={() => {
+                                setSelected(menu)
+                                setOpen(!open)
+                            }} key={y} className="px-4  h-7 flex items-center overflow-hidden">
+                                <p className={`${poppins.className} text-white`}>{menu.label}</p>
+                            </div>
+
+                        ))
+                    }
+                </motion.div>
+
             </div>
         </div>
     )
