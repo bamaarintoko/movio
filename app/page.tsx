@@ -12,14 +12,14 @@ export default function Home() {
             <div className=" sticky top-0 z-20">
                 <HomeHeader />
             </div>
-            <div className="relative h-full overflow-y-auto">
+            {/* <div className="overflow-y-auto"> */}
 
-                <HomeBanner />
-                <ServerHomeTrending />
-                <HomeLatestTrailer />
-                <HomePopular />
-                <HomeFreeToWatch />
-            </div>
+            <HomeBanner />
+            <ServerHomeTrending />
+            <HomeLatestTrailer />
+            <HomePopular />
+            <HomeFreeToWatch />
+            {/* </div> */}
 
         </div >
     )
