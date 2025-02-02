@@ -9,7 +9,7 @@ export default function HomeHeader() {
 
     const [hidden, setHidden] = useState(false);
     // const [lastScrollY, setLastScrollY] = useState(0);
-    const [hideTimeout, setHideTimeout] = useState<NodeJS.Timeout | null>(null);
+    // const [hideTimeout, setHideTimeout] = useState<NodeJS.Timeout | null>(null);
     const lastScrollY = useRef(0);
     const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
@@ -49,10 +49,10 @@ export default function HomeHeader() {
     }, [lastScrollY]);
 
 
-    useEffect(() => {
-        console.log('hidden : ', hidden)
-        console.log('hideTimeout : ', hideTimeout)
-    }, [hidden, hideTimeout])
+    // useEffect(() => {
+    //     console.log('hidden : ', hidden)
+    //     console.log('hideTimeout : ', hideTimeout)
+    // }, [hidden, hideTimeout])
 
     useEffect(() => {
         if (open) {
