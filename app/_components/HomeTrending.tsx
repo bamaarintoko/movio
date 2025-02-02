@@ -4,7 +4,7 @@ import Image from "next/image";
 import Selector from "./Selector";
 import { useEffect, useState } from "react";
 import { PhotoIcon } from "@heroicons/react/20/solid";
-
+import { motion } from "motion/react";
 type Movie = {
     adult: boolean;
     backdrop_path: string;
@@ -77,18 +77,18 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
     return (
         <div className="w-full">
             <div className="2xl:max-w-[1280px] mx-auto lg:flex justify-center-center flex-col" >
-                <div className="flex gap-4 lg:px-10 xl:px-10 2xl:px-10 px-4 py-6">
+                <div className="flex gap-4 lg:px-10 xl:px-10 2xl:px-10 px-4 py-3">
                     <p className={`${oswald.className} text-2xl`}>
 
                         Trending
                     </p>
                     <Selector data={arrSelector} onChange={handleChange()} />
                 </div>
-                <div className="relative h-[calc(14rem+3.7rem)]">
+                <div className="relative h-[calc(14rem+4rem)]">
                     {
                         popularMovies.length < 1
                         &&
-                        <div className="absolute w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4 h-[calc(14rem+3.7rem)] ">
+                        <div className="absolute w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4 h-[calc(14rem+4rem)] bg-red-500">
                             {Array.from({ length: 20 }).map((x, y: number) => (
                                 <div key={y} className="w-36 flex-shrink-0 space-y-2">
                                     <div key={y} className="relative h-56 bg-slate-100 rounded-md animate-pulse flex items-center justify-center">
@@ -103,10 +103,10 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
                     {
                         popularMovies.length > 0
                         &&
-                        <div className="w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4 h-[calc(14rem+3.7rem)] ">
+                        <div className="w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4 h-[calc(14rem+4rem)] overflow-y-hidden">
                             {popularMovies.map((x, y) => (
-                                <div key={y} className="w-36 flex-shrink-0">
-                                    <div key={y} className="relative h-56">
+                                <div key={y} className="w-36 flex-shrink-0 mt-3 space-y-1">
+                                    <motion.div whileHover={{ scale: 1.05 }} key={y} className="relative h-56">
                                         <Image
                                             priority
                                             src={`https://image.tmdb.org/t/p/w220_and_h330_smart${x.poster_path}`} // Replace with your dynamic poster path
@@ -115,7 +115,7 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
                                             style={{ objectFit: "cover" }}
                                             className="object-cover rounded-md"
                                         />
-                                    </div>
+                                    </motion.div>
                                     <div className=" h-14">
                                         <p className={`${poppins.className} font-bold text-sm line-clamp-2`}>
 
