@@ -88,7 +88,7 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
                     {
                         popularMovies.length < 1
                         &&
-                        <div className="absolute w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4 h-[calc(14rem+4rem)] bg-red-500">
+                        <div className="absolute w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4 h-[calc(14rem+4rem)] ">
                             {Array.from({ length: 20 }).map((x, y: number) => (
                                 <div key={y} className="w-36 flex-shrink-0 space-y-2">
                                     <div key={y} className="relative h-56 bg-slate-100 rounded-md animate-pulse flex items-center justify-center">
