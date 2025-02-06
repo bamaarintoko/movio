@@ -11,15 +11,15 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      NEXT_PUBLIC_TMDB_API_KEY: ${{ secrets.NEXT_PUBLIC_TMDB_API_KEY }}
+      NEXT_PUBLIC_TMDB_HOST: ${{ secrets.NEXT_PUBLIC_TMDB_HOST }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Print Environment Variables
-        run: echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}"
+        run: echo "NEXT_PUBLIC_TMDB_HOST=$NEXT_PUBLIC_TMDB_HOST"
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
