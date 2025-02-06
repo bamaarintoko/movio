@@ -86,7 +86,7 @@ export default function HomeFreeToWatch() {
     return (
         <div className="w-full">
             <div className="2xl:max-w-[1280px] mx-auto h-auto lg:flex justify-center-center flex-col" >
-                <div className="flex gap-4 px-10 py-6">
+                <div className="flex gap-4 px-4 py-6">
                     <p className={`${oswald.className} text-2xl`}>
 
                         Free To Watch

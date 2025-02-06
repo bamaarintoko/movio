@@ -5,6 +5,9 @@ import Selector from "./Selector";
 import { useEffect, useState } from "react";
 import { PhotoIcon } from "@heroicons/react/20/solid";
 import { motion } from "motion/react";
+import { useRouter } from 'next/navigation'
+import { slugformatter } from "@/lib/functions";
+
 type Movie = {
     adult: boolean;
     backdrop_path: string;
@@ -48,7 +51,7 @@ const arrSelector = [
 
 export default function HomeTrending({ data }: HomeTrendingProps) {
     const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
-
+    const router = useRouter()
     useEffect(() => {
         setPopularMovies(data)
         console.log('data : ', data)
@@ -72,6 +75,12 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
         // setInputValue(value); // Update the input value state
         syncPopular(value); // Call syncPopular with the value
     };
+
+    const handleDetail = (id: number,title:string) => {
+        const newId = id+"-"+slugformatter(title)
+        console.log('id : ', newId)
+        router.push(`movie/${newId}`)
+    }
     // const data : ApiResponse = datas
     // console.log('dataaaaa : ',data)
     return (
@@ -105,7 +114,7 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
                         &&
                         <div className="w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4 h-[calc(14rem+4rem)] overflow-y-hidden">
                             {popularMovies.map((x, y) => (
-                                <div key={y} className="w-36 flex-shrink-0 mt-3 space-y-1">
+                                <div onClick={() => handleDetail(x.id,x.title)} key={y} className="w-36 flex-shrink-0 mt-3 space-y-1 cursor-pointer">
                                     <motion.div whileHover={{ scale: 1.05 }} key={y} className="relative h-56">
                                         <Image
                                             priority
