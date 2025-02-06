@@ -15,11 +15,11 @@ jobs:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
     steps:
-      - name: Print env variables
-        run: echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL"
-        
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Print Environment Variables
+        run: echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}"
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
