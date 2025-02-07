@@ -1,4 +1,7 @@
 export function slugformatter(str: string) {
-    const formattedStr = str.replace(/[\W_]+/g, '-').toLowerCase();
-    return formattedStr
+    return str
+        .toLowerCase()
+        .trim()
+        .replace(/[\W_]+/g, '-') // Replace spaces and special characters with '-'
+        .replace(/^-+|-+$/g, ''); // Remove leading and trailing dashes
 }
