@@ -12,6 +12,7 @@ type SelectorProps = {
     data: Selectors[]; // Define the prop as an array of strings
     onChange?: (value: Selectors) => void
 };
+
 export default function Selector({ data, onChange = () => { } }: SelectorProps) {
     const [open, setOpen] = useState(false)
     const [selected, setSelected] = useState<Selectors>({ label: 'Today', value: 'day' })

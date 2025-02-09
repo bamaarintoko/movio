@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,7 +16,22 @@ export const metadata: Metadata = {
 		"film discovery",
 	],
 	authors: [{ name: "Moovioo Team" }],
+	manifest: "/manifest.webmanifest",
+	// themeColor: "#000000",
+	appleWebApp: {
+		capable: true,
+		statusBarStyle: "black-translucent",
+		title: "My PWA App",
+	},
+	icons: {
+		icon: "/icons/web-app-manifest-192x192.png",
+		apple: "/icons/web-app-manifest-192x192.png",
+	},
 };
+
+export const viewport: Viewport = {
+	themeColor: 'black',
+  }
 
 export default function RootLayout({
 	children,

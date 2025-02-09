@@ -63,8 +63,6 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
             const response = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}trending/movie/${params.value}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`);
             const data: ApiResponse = await response.json();
             setPopularMovies(data.results)
-            console.log('response : ', data)
-            console.log('params : ', params)
         } catch (error) {
             console.log(error)
         }
