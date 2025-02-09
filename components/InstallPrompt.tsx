@@ -51,22 +51,25 @@ export default function InstallPrompt() {
         }
     };
     return (
-        <div>
+        <div className="bg-red-500 z-50">
             {
                 showPopup && !isInstalled &&
-                <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-white p-4 shadow-lg rounded-lg flex items-center space-x-4">
-                    <p className="text-gray-700">Install this app on your device for a better experience.</p>
-                    <button
-                        onClick={handleInstallClick}
-                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                    >
-                        Install
-                    </button>
-                    <button
-                        className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600"
-                    >
-                        Close
-                    </button>
+                <div className="flex flex-col fixed bottom-4 lg:left-1/2 lg:transform lg:-translate-x-1/2 bg-white p-4 shadow-lg rounded-lg items-center">
+                    <p className="text-gray-700 text-center">Install this app on your device for a better experience.</p>
+                    <div className="flex gap-2 ">
+
+                        <button
+                            onClick={handleInstallClick}
+                            className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                        >
+                            Install
+                        </button>
+                        <button
+                            className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600"
+                        >
+                            Close
+                        </button>
+                    </div>
                 </div>
             }
         </div>
