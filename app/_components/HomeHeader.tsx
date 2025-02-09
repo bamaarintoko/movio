@@ -3,7 +3,49 @@ import { oswald, poppins } from "@/lib/fonts";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
-
+import HeaderDropDownMenu from "./HeaderDropDownMenu";
+const movies = [
+    {
+        name:'Popular',
+        url:''
+    },
+    {
+        name:'Now Playing',
+        url:''
+    },
+    {
+        name:'Upcoming',
+        url:''
+    },
+    {
+        name:'Top Rated',
+        url:''
+    }
+]
+const tvShows = [
+    {
+        name:'Popular',
+        url:''
+    },
+    {
+        name:'Airing Today',
+        url:''
+    },
+    {
+        name:'On TV',
+        url:''
+    },
+    {
+        name:'Top Rated',
+        url:''
+    }
+]
+const peoples = [
+    {
+        name:'Popular People',
+        url:''
+    },
+]
 export default function HomeHeader() {
     const [open, setOpen] = useState<boolean>(false)
 
@@ -84,13 +126,22 @@ export default function HomeHeader() {
                 transition={{ duration: 1, type: 'spring' }}
             >
                 <div className="2xl:max-w-[1280px] h-14 mx-auto lg:flex items-center px-10 hidden" >
-                    <div className={`${oswald.className} mr-10`}>
+                    <div className={`${oswald.className} mr-10 cursor-pointer`}>
                         <p className="text-xl font-bold text-white">MOVIO</p>
                     </div>
-                    <div className={`${poppins.className} flex text-white gap-8 font-bold text-sm`}>
-                        <p>Movie</p>
-                        <p>TV Shows</p>
-                        <p>People</p>
+                    <div className={`flex  gap-8 text-sm cursor-pointer`}>
+                        {/* <div onMouseEnter={() => console.log('enter')} onMouseLeave={() => console.log('leave')}>
+                            <p>Movie</p>
+                        </div> */}
+                        <HeaderDropDownMenu label="Movie" data={movies}/>
+                        <HeaderDropDownMenu label="TV Shows" data={tvShows}/>
+                        <HeaderDropDownMenu label="People" data={peoples}/>
+                        {/* <div>
+                            <p>TV Shows</p>
+                        </div>
+                        <div>
+                            <p>People</p>
+                        </div> */}
                     </div>
                 </div>
                 <div className="flex flex-row items-center lg:hidden  h-full px-4">
