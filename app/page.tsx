@@ -1,3 +1,4 @@
+
 // import UpcomingMovies from "./_components/UpcomingMovies";
 import HomeBanner from "./_components/HomeBanner";
 import HomeLatestTrailer from './_components/HomeLatestTrailer';
@@ -5,6 +6,7 @@ import HomePopular from './_components/HomePopular';
 import HomeFreeToWatch from './_components/HomeFreeToWatch';
 import { ServerHomeTrending } from './_components/ServerHomeTrending';
 import HomeHeader from './_components/HomeHeader';
+import InstallPrompt from "@/components/InstallPrompt";
 
 export default function Home() {
     return (
@@ -19,6 +21,7 @@ export default function Home() {
             <HomeLatestTrailer />
             <HomePopular />
             <HomeFreeToWatch />
+            <InstallPrompt/>
             {/* </div> */}
 
         </div >

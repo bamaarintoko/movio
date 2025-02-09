@@ -21,11 +21,11 @@ export const metadata: Metadata = {
 	appleWebApp: {
 		capable: true,
 		statusBarStyle: "black-translucent",
-		title: "My PWA App",
+		title: "Moovioo",
 	},
 	icons: {
-		icon: "/icons/web-app-manifest-192x192.png",
-		apple: "/icons/web-app-manifest-192x192.png",
+		icon: "/icons/icon-192.png",
+		apple: "/icons/apple-touch-icon.png",
 	},
 };
 
