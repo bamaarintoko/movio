@@ -22,7 +22,7 @@ export default withPWA(pwaConfig)({
       ],
     },
     reactStrictMode: false,
-    experimental: {
-      appDir: true, // Enable App Router
-    },
+    // experimental: {
+    //   appDir: true, // Enable App Router
+    // },
   }) as NextConfig;
