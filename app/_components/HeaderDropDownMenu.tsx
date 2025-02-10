@@ -1,5 +1,6 @@
 'use client'
 import { poppins } from "@/lib/fonts";
+import Link from "next/link";
 import { useState } from "react";
 
 type Menu = {
@@ -8,8 +9,8 @@ type Menu = {
 }
 
 type HeaderDropDownProps = {
-    label: string,/*  */
-    data?: Menu[]/*  */
+    label: string,
+    data?: Menu[]
 };
 export default function HeaderDropDownMenu({ label = "label", data = [] }: HeaderDropDownProps) {
     const [hide, setHide] = useState<boolean>(true)
@@ -31,7 +32,10 @@ export default function HeaderDropDownMenu({ label = "label", data = [] }: Heade
                     {
                         data.map((x, y: number) => (
                             <div key={y} className=" p-1 px-2 hover:bg-slate-200">
-                                <p className={`${poppins.className} text-sm`}>{x.name}</p>
+                                <Link href={x.url}>
+
+                                    <p className={`${poppins.className} text-sm`}>{x.name}</p>
+                                </Link>
                             </div>
                         ))
                     }

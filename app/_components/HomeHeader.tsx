@@ -4,46 +4,47 @@ import { Bars3Icon } from "@heroicons/react/20/solid";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import HeaderDropDownMenu from "./HeaderDropDownMenu";
+import Link from "next/link";
 const movies = [
     {
-        name:'Popular',
-        url:''
+        name: 'Popular',
+        url: '/movie/category/popular'
     },
     {
-        name:'Now Playing',
-        url:''
+        name: 'Now Playing',
+        url: '/movie/category/now-playing'
     },
     {
-        name:'Upcoming',
-        url:''
+        name: 'Upcoming',
+        url: '/movie/category/upcoming'
     },
     {
-        name:'Top Rated',
-        url:''
+        name: 'Top Rated',
+        url: '/movie/category/top-rated'
     }
 ]
 const tvShows = [
     {
-        name:'Popular',
-        url:''
+        name: 'Popular',
+        url: '/tv/category/popular'
     },
     {
-        name:'Airing Today',
-        url:''
+        name: 'Airing Today',
+        url: '/tv/category/airing-today'
     },
     {
-        name:'On TV',
-        url:''
+        name: 'On TV',
+        url: '/tv/category/on-the-air'
     },
     {
-        name:'Top Rated',
-        url:''
+        name: 'Top Rated',
+        url: '/tv/category/top-rated'
     }
 ]
 const peoples = [
     {
-        name:'Popular People',
-        url:''
+        name: 'Popular People',
+        url: '/people/category/person'
     },
 ]
 export default function HomeHeader() {
@@ -127,15 +128,17 @@ export default function HomeHeader() {
             >
                 <div className="2xl:max-w-[1280px] h-14 mx-auto lg:flex items-center px-10 hidden" >
                     <div className={`${oswald.className} mr-10 cursor-pointer`}>
-                        <p className="text-xl font-bold text-white">MOVIO</p>
+                        <Link href="/">
+                            <p className="text-xl font-bold text-white">MOVIO</p>
+                        </Link>
                     </div>
                     <div className={`flex  gap-8 text-sm cursor-pointer`}>
                         {/* <div onMouseEnter={() => console.log('enter')} onMouseLeave={() => console.log('leave')}>
                             <p>Movie</p>
                         </div> */}
-                        <HeaderDropDownMenu label="Movie" data={movies}/>
-                        <HeaderDropDownMenu label="TV Shows" data={tvShows}/>
-                        <HeaderDropDownMenu label="People" data={peoples}/>
+                        <HeaderDropDownMenu label="Movie" data={movies} />
+                        <HeaderDropDownMenu label="TV Shows" data={tvShows} />
+                        <HeaderDropDownMenu label="People" data={peoples} />
                         {/* <div>
                             <p>TV Shows</p>
                         </div>
