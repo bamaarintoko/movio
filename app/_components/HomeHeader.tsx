@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import HeaderDropDownMenu from "./HeaderDropDownMenu";
 import Link from "next/link";
+import CollapsibleMenu from "./CollapsibleMenu";
 const movies = [
     {
         name: 'Popular',
@@ -47,7 +48,21 @@ const peoples = [
         url: '/people/category/person'
     },
 ]
+
+type moviesProps = {
+    name: string,
+    url: string
+}
+type tvShowsPorps = {
+    name: string,
+    url: string
+}
+type peoplesProps = {
+    name: string,
+    url: string
+}
 export default function HomeHeader() {
+    const [openId, setOpenId] = useState<string | null>(null);
     const [open, setOpen] = useState<boolean>(false)
 
     const [hidden, setHidden] = useState(false);
@@ -116,6 +131,10 @@ export default function HomeHeader() {
         // console.log('qweqeqwe')
         setOpen(!open)
     }
+
+    const handleToggle = (id: string) => {
+        setOpenId((prev) => (prev === id ? null : id));
+    };
     return (
         <div>
 
@@ -156,51 +175,24 @@ export default function HomeHeader() {
                         </div>
                     }
                     <div className={`${oswald.className} ml-auto items-end`}>
-                        <p className="text-xl font-bold text-white">MOVIO</p>
+                        <Link href="/">
+                            <p className="text-xl font-bold text-white">MOVIO</p>
+                        </Link>
                     </div>
                 </div>
             </motion.div>
 
+            {/* drawer mobile */}
             <div className="relative z-20" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
                 <h2 id="slide-over-title" className="sr-only">Navigation Panel</h2>
-                {/* <!--
-                Background backdrop, show/hide based on slide-over state.
-
-                Entering: "ease-in-out duration-500"
-                From: "opacity-0"
-                To: "opacity-100"
-                Leaving: "ease-in-out duration-500"
-                From: "opacity-100"
-                To: "opacity-0"
-  --> */}
                 <div className={`fixed inset-0 bg-gray-500/75 transition-opacity ease-in-out duration-500 ${open ? "opacity-100 pointer-events-none" : "opacity-0 pointer-events-none"
                     }`} aria-hidden="true"></div>
 
                 <div className="fixed overflow-hidden">
                     <div className="absolute inset-0 overflow-hidden">
                         <div className="pointer-events-none fixed inset-y-0 flex max-w-full pr-10">
-                            {/* <!--
-                            Slide-over panel, show/hide based on slide-over state.
-
-                            Entering: "transform transition ease-in-out duration-500 sm:duration-700"
-                            From: "translate-x-full"
-                            To: "translate-x-0"
-                            Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
-                            From: "translate-x-0"
-                            To: "translate-x-full"
-        --> */}
                             <div className={` pointer-events-auto relative w-screen max-w-md transform transition ease-in-out duration-500 sm:duration-700 ${open ? "translate-x-0" : "-translate-x-full"
                                 }`}>
-                                {/* <!--
-                                Close button, show/hide based on slide-over state.
-
-                                Entering: "ease-in-out duration-500"
-                                From: "opacity-0"
-                                To: "opacity-100"
-                                Leaving: "ease-in-out duration-500"
-                                From: "opacity-100"
-                                To: "opacity-0"
-          --> */}
                                 <div className="absolute top-0 right-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4">
                                     <button onClick={handleDrawer} type="button" className="relative rounded-md text-gray-300 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden">
                                         <span className="absolute -inset-2.5"></span>
@@ -214,16 +206,60 @@ export default function HomeHeader() {
                                 <div className="flex h-full flex-col overflow-y-auto bg-[#001F3F] py-6 shadow-xl">
                                     <div className="relative mt-6 flex-1 px-4 sm:px-6 ">
                                         {/* <!-- Your content --> */}
-                                        <div className={`${poppins.className} flex text-white gap-8 font-bold text-lg flex-col`}>
-                                            <div onClick={() => console.log('movie')}>
-                                                <p>Movie</p>
-                                            </div>
+                                        <div className={` space-y-4 flex-col`}>
+                                            <CollapsibleMenu
+                                                id="movie"
+                                                title="Movie"
+                                                isOpen={openId === "movie"}
+                                                onClick={handleToggle}
+                                            >
+                                                {
+                                                    movies.map((x: moviesProps, y: number) => (
+                                                        <div key={y} className=" py-1">
+                                                            <Link href={x.url}>
+                                                                <p className={`${poppins.className} text-white`}>{x.name}</p>
+                                                            </Link>
+                                                        </div>
+                                                    ))
+                                                }
+                                            </CollapsibleMenu>
+                                            <CollapsibleMenu
+                                                id="tvShows"
+                                                title="Tv Shows"
+                                                isOpen={openId === "tvShows"}
+                                                onClick={handleToggle}
+                                            >
+                                                {
+                                                    tvShows.map((x: tvShowsPorps, y: number) => (
+                                                        <div key={y} className=" py-1">
+
+                                                            <p className={`${poppins.className} text-white`}>{x.name}</p>
+                                                        </div>
+                                                    ))
+                                                }
+                                            </CollapsibleMenu>
+                                            <CollapsibleMenu
+                                                id="people"
+                                                title="People"
+                                                isOpen={openId === "people"}
+                                                onClick={handleToggle}
+                                            >
+                                                {
+                                                    peoples.map((x: peoplesProps, y: number) => (
+                                                        <div key={y} className=" py-1">
+
+                                                            <p className={`${poppins.className} text-white`}>{x.name}</p>
+                                                        </div>
+                                                    ))
+                                                }
+                                            </CollapsibleMenu>
+                                            {/* <DrawerMenu />
                                             <div onClick={() => console.log('tv shows')}>
                                                 <p>TV Shows</p>
                                             </div>
                                             <div onClick={() => console.log('people')}>
                                                 <p>People</p>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>

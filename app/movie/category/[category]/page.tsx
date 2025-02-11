@@ -118,6 +118,7 @@ export default function PageMovie() {
                                             fill
                                             style={{ objectFit: "cover" }}
                                             className="object-cover rounded-t-md"
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         />
                                     </div>
                                     <div className="px-2 pt-4">
