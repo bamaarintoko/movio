@@ -76,10 +76,10 @@ export default function PageMovie() {
     const fetchMovie = async (endpoint: string = POPULAR) => {
         try {
             const movieResponse = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}movie/${endpoint}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&page=1`)
-            const moviewData: ApiResponse = await movieResponse.json()
+            const movieData: ApiResponse = await movieResponse.json()
             if (movieResponse.ok) {
                 // console.log('--- ', moviewData.results)
-                setMovies(moviewData.results)
+                setMovies(movieData.results)
             }
         } catch (error) {
             console.log('error : ', error)

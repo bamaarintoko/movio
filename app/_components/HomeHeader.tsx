@@ -232,8 +232,9 @@ export default function HomeHeader() {
                                                 {
                                                     tvShows.map((x: tvShowsPorps, y: number) => (
                                                         <div key={y} className=" py-1">
-
-                                                            <p className={`${poppins.className} text-white`}>{x.name}</p>
+                                                            <Link href={x.url}>
+                                                                <p className={`${poppins.className} text-white`}>{x.name}</p>
+                                                            </Link>
                                                         </div>
                                                     ))
                                                 }
@@ -247,8 +248,9 @@ export default function HomeHeader() {
                                                 {
                                                     peoples.map((x: peoplesProps, y: number) => (
                                                         <div key={y} className=" py-1">
-
-                                                            <p className={`${poppins.className} text-white`}>{x.name}</p>
+                                                            <Link href={x.url}>
+                                                                <p className={`${poppins.className} text-white`}>{x.name}</p>
+                                                            </Link>
                                                         </div>
                                                     ))
                                                 }
