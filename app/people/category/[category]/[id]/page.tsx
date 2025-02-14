@@ -1,7 +1,7 @@
 import HomeHeader from "@/app/_components/HomeHeader";
 import { oswald, poppins } from "@/lib/fonts";
-import Image from "next/image";
 import LoadingImage from "./_components/LoadingImage";
+import LoadingImageMobile from "./_components/LoadingImageMobile";
 
 interface PersonDetails {
     adult: boolean;
@@ -24,7 +24,7 @@ type PersonDetailProps = {
     params: Promise<{ id: string }>
 }
 export default async function PagePersonDetail({ params }: PersonDetailProps) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 6000));
     const { id } = await params
     const result = id.split("-")
     const response = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}person/${result[0]}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
@@ -44,16 +44,7 @@ export default async function PagePersonDetail({ params }: PersonDetailProps) {
                         <div className="xl:hidden lg:hidden md:hidden flex flex-col items-center justify-center pt-10">
 
                             <div className="h-[165px] w-[165px]  ">
-                                <Image
-                                    priority
-                                    src={`https://image.tmdb.org/t/p/w235_and_h235_smart${data.profile_path}`} // Replace with your dynamic poster path
-                                    alt="Movie Poster"
-                                    width={165}
-                                    height={165}
-                                    className="rounded-md "
-                                    // placeholder="blur"
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                />
+                                <LoadingImageMobile profile_path={data.profile_path}/>
                             </div>
                             <div>
                                 {

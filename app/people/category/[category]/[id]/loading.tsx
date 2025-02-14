@@ -9,7 +9,7 @@ export default function Loading() {
             <div className="grid grid-rows-auto xl:grid-cols-[300px_1fr] gap-4 lg:p-10 xl:p-10">
                 <div className=" h-auto">
                     <div className="xl:hidden lg:hidden md:hidden flex flex-col items-center justify-center pt-10">
-                        <div className="h-[165px] w-[165px] animate-pulse">
+                        <div className="h-[165px] w-[165px] bg-slate-200 animate-pulse rounded-md">
 
                         </div>
                         <div className="h-2 bg-slate-300 animate-pulse">
