@@ -2,6 +2,7 @@ import HomeHeader from "@/app/_components/HomeHeader";
 import { oswald, poppins } from "@/lib/fonts";
 import LoadingImage from "./_components/LoadingImage";
 import LoadingImageMobile from "./_components/LoadingImageMobile";
+import { slugformatter } from "@/lib/functions";
 
 interface PersonDetails {
     adult: boolean;
@@ -23,6 +24,45 @@ interface PersonDetails {
 type PersonDetailProps = {
     params: Promise<{ id: string }>
 }
+
+export async function generateMetadata({ params }: PersonDetailProps) {
+    const { id } = await params
+    const result = id.split("-")
+    const response = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}person/${result[0]}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
+    const data: PersonDetails = await response.json()
+    // console.log('generateMetadata : ',data)
+    const metadata = {
+        title: `${data.name} - Movies, Bio, and Filmography | Moovioo`,
+        description: `Explore ${data.name}'s biography, filmography, and latest movies on Moovioo.`,
+        keywords: [`${data.name}`,  "biography", "movies", "filmography"],
+        openGraph: {
+          title: `${data.name} - Movies, Bio, and Filmography | Moovioo`,
+          description: `Explore ${data.name}'s biography, filmography, and latest movies on Moovioo.`,
+          url: `https://moovioo.vercel.app/people/category/person/${data.id}-${slugformatter(data.name)}`,
+          type: "profile",
+          images: [
+            {
+              url: `https://image.tmdb.org/t/p/w235_and_h235_smart${data.profile_path}`,
+              width: 800,
+              height: 600,
+              alt: data.name,
+            },
+          ],
+        },
+        twitter: {
+          card: "summary_large_image",
+          title: `${data.name} - Movies, Bio, and Filmography | Moovioo`,
+          description: `Explore ${data.name}'s biography, filmography, and latest movies on Moovioo.`,
+          images: [`https://image.tmdb.org/t/p/w235_and_h235_smart${data.profile_path}`],
+        },
+      };
+    
+    //   console.log("Generated metadata:", metadata); // Debug metadata output
+    
+      return metadata;
+    
+}
+
 export default async function PagePersonDetail({ params }: PersonDetailProps) {
     // await new Promise((resolve) => setTimeout(resolve, 6000));
     const { id } = await params
@@ -44,7 +84,7 @@ export default async function PagePersonDetail({ params }: PersonDetailProps) {
                         <div className="xl:hidden lg:hidden md:hidden flex flex-col items-center justify-center pt-10">
 
                             <div className="h-[165px] w-[165px]  ">
-                                <LoadingImageMobile profile_path={data.profile_path}/>
+                                <LoadingImageMobile profile_path={data.profile_path} />
                             </div>
                             <div>
                                 {
