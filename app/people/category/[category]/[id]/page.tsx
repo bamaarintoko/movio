@@ -1,7 +1,6 @@
 import HomeHeader from "@/app/_components/HomeHeader";
 import { oswald, poppins } from "@/lib/fonts";
 import Image from "next/image";
-import { Suspense } from "react";
 import LoadingImage from "./_components/LoadingImage";
 
 interface PersonDetails {
