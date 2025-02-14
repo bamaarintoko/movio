@@ -34,33 +34,34 @@ export async function generateMetadata({ params }: PersonDetailProps) {
     const metadata = {
         title: `${data.name} - Movies, Bio, and Filmography | Moovioo`,
         description: `Explore ${data.name}'s biography, filmography, and latest movies on Moovioo.`,
-        keywords: [`${data.name}`,  "biography", "movies", "filmography"],
+        keywords: [`${data.name}`, "biography", "movies", "filmography"],
         openGraph: {
-          title: `${data.name} - Movies, Bio, and Filmography | Moovioo`,
-          description: `Explore ${data.name}'s biography, filmography, and latest movies on Moovioo.`,
-          url: `https://moovioo.vercel.app/people/category/person/${data.id}-${slugformatter(data.name)}`,
-          type: "profile",
-          images: [
-            {
-              url: `https://image.tmdb.org/t/p/w235_and_h235_smart${data.profile_path}`,
-              width: 800,
-              height: 600,
-              alt: data.name,
-            },
-          ],
+            title: `${data.name} - Movies, Bio, and Filmography | Moovioo`,
+            description: `Explore ${data.name}'s biography, filmography, and latest movies on Moovioo.`,
+            url: `https://moovioo.vercel.app/people/category/person/${data.id}-${slugformatter(data.name)}`,
+            type: "profile",
+            site_name: "Moovioo",
+            images: [
+                {
+                    url: `https://image.tmdb.org/t/p/w235_and_h235_smart${data.profile_path}`,
+                    width: 165,
+                    height: 165,
+                    alt: data.name,
+                },
+            ],
         },
         twitter: {
-          card: "summary_large_image",
-          title: `${data.name} - Movies, Bio, and Filmography | Moovioo`,
-          description: `Explore ${data.name}'s biography, filmography, and latest movies on Moovioo.`,
-          images: [`https://image.tmdb.org/t/p/w235_and_h235_smart${data.profile_path}`],
+            card: "summary_large_image",
+            title: `${data.name} - Movies, Bio, and Filmography | Moovioo`,
+            description: `Explore ${data.name}'s biography, filmography, and latest movies on Moovioo.`,
+            images: [`https://image.tmdb.org/t/p/w235_and_h235_smart${data.profile_path}`],
         },
-      };
-    
+    };
+
     //   console.log("Generated metadata:", metadata); // Debug metadata output
-    
-      return metadata;
-    
+
+    return metadata;
+
 }
 
 export default async function PagePersonDetail({ params }: PersonDetailProps) {
