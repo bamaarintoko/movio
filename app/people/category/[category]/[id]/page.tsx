@@ -1,6 +1,8 @@
 import HomeHeader from "@/app/_components/HomeHeader";
 import { oswald, poppins } from "@/lib/fonts";
 import Image from "next/image";
+import { Suspense } from "react";
+import LoadingImage from "./_components/LoadingImage";
 
 interface PersonDetails {
     adult: boolean;
@@ -23,6 +25,7 @@ type PersonDetailProps = {
     params: Promise<{ id: string }>
 }
 export default async function PagePersonDetail({ params }: PersonDetailProps) {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const { id } = await params
     const result = id.split("-")
     const response = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}person/${result[0]}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
@@ -48,7 +51,8 @@ export default async function PagePersonDetail({ params }: PersonDetailProps) {
                                     alt="Movie Poster"
                                     width={165}
                                     height={165}
-                                    className="rounded-md"
+                                    className="rounded-md "
+                                    // placeholder="blur"
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 />
                             </div>
@@ -62,16 +66,18 @@ export default async function PagePersonDetail({ params }: PersonDetailProps) {
                                 }
                             </div>
                         </div>
-                        <div className="h-[450px] w-[300px] hidden lg:flex xl:flex">
-                            <Image
+                        <div className="h-[450px] w-[300px] hidden lg:flex xl:flex relative ">
+                            <LoadingImage profile_path={data.profile_path} />
+                            {/* <Image
                                 priority
                                 src={`https://image.tmdb.org/t/p/w300_and_h450_smart${data.profile_path}`} // Replace with your dynamic poster path
                                 alt="Movie Poster"
                                 width={300}
                                 height={450}
-                                className="rounded-md"
+                                className="rounded-md absolute inset-0 transition-opacity opacity-0 duration-500"
+                                onLoad={(e) => e.currentTarget.classList.remove("opacity-0")}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            />
+                            /> */}
                         </div>
                         <div className="p-4 xl:p-0 lg:p-0 xl:pt-4 lg:pt-4 xl:space-y-4 lg:space-y-4 space-y-2">
                             <div>
