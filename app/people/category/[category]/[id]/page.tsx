@@ -24,7 +24,7 @@ type PersonDetailProps = {
     params: Promise<{ id: string }>
 }
 export default async function PagePersonDetail({ params }: PersonDetailProps) {
-    await new Promise((resolve) => setTimeout(resolve, 6000));
+    // await new Promise((resolve) => setTimeout(resolve, 6000));
     const { id } = await params
     const result = id.split("-")
     const response = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}person/${result[0]}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
