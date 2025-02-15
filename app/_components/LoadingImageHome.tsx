@@ -10,7 +10,7 @@ export default function LoadingImageHome({ poster_path }: LoadingImageHomeProps)
     return (
         <div key={poster_path} className={`h-56 ${loading ? "bg-slate-200 animate-pulse rounded-md" : "opacity-100"}`}>
             <Image
-                priority
+                loading="lazy"
                 src={`https://image.tmdb.org/t/p/w220_and_h330_smart${poster_path}`} // Replace with your dynamic poster path
                 alt="Movie Poster"
                 fill
