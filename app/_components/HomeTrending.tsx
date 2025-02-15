@@ -1,12 +1,12 @@
 'use client'
 import { oswald, poppins } from "@/lib/fonts";
-import Image from "next/image";
 import Selector from "./Selector";
 import { useEffect, useState } from "react";
 import { PhotoIcon } from "@heroicons/react/20/solid";
 import { motion } from "motion/react";
 import { useRouter } from 'next/navigation'
 import { slugformatter } from "@/lib/functions";
+import LoadingImageHome from "./LoadingImageHome";
 
 type Movie = {
     adult: boolean;
@@ -74,8 +74,8 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
         syncPopular(value); // Call syncPopular with the value
     };
 
-    const handleDetail = (id: number,title:string) => {
-        const newId = id+"-"+slugformatter(title)
+    const handleDetail = (id: number, title: string) => {
+        const newId = id + "-" + slugformatter(title)
         console.log('id : ', newId)
         router.push(`movie/${newId}`)
     }
@@ -112,16 +112,17 @@ export default function HomeTrending({ data }: HomeTrendingProps) {
                         &&
                         <div className="w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4 h-[calc(14rem+4rem)] overflow-y-hidden">
                             {popularMovies.map((x, y) => (
-                                <div onClick={() => handleDetail(x.id,x.title)} key={y} className="w-36 flex-shrink-0 mt-3 space-y-1 cursor-pointer">
+                                <div onClick={() => handleDetail(x.id, x.title)} key={y} className="w-36 flex-shrink-0 mt-3 space-y-1 cursor-pointer">
                                     <motion.div whileHover={{ scale: 1.05 }} key={y} className="relative h-56">
-                                        <Image
+                                        <LoadingImageHome poster_path={x.poster_path} />
+                                        {/* <Image
                                             priority
                                             src={`https://image.tmdb.org/t/p/w220_and_h330_smart${x.poster_path}`} // Replace with your dynamic poster path
                                             alt="Movie Poster"
                                             fill
                                             style={{ objectFit: "cover" }}
                                             className="object-cover rounded-md"
-                                        />
+                                        /> */}
                                     </motion.div>
                                     <div className=" h-14">
                                         <p className={`${poppins.className} font-bold text-sm line-clamp-2`}>

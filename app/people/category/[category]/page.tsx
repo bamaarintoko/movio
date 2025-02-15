@@ -44,6 +44,7 @@ interface ApiResponse {
     total_results: number;
 }
 export default function PagePeople() {
+    // await new Promise((resolve) => setTimeout(resolve, 6000));
     const [people, setPeople] = useState<Person[]>([])
     const params = useParams()
 
