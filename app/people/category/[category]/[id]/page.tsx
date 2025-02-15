@@ -3,7 +3,6 @@ import { oswald, poppins } from "@/lib/fonts";
 import LoadingImage from "./_components/LoadingImage";
 import LoadingImageMobile from "./_components/LoadingImageMobile";
 import { slugformatter } from "@/lib/functions";
-import Image from "next/image";
 import LoadingImageKnownFor from "./_components/LoadingImageKnownFor";
 import Biography from "./_components/Biography";
 
