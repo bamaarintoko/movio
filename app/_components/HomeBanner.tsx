@@ -46,15 +46,15 @@ export default async function HomeBanner() {
     console.log('res : ', data)
     return (
         <div className="w-full">
-            <div className="2xl:max-w-[1280px] mx-auto h-[450px] lg:flex justify-center-center" >
-                <div className="lg:grid grid-cols-5 w-full hidden absolute  h-[450px]">
-                    {
+            <div className="2xl:max-w-[1280px] mx-auto h-[450px] lg:flex justify-center-center relative" >
+                <div className="xl:grid 2xl:grid lg:grid grid-cols-5 w-full hidden absolute  h-[450px]">
+                    {/* {
                         Array.from({ length: 5 }).map((_, x: number) => (
                             <div key={x} className={`flex items-center justify-center`}>
                                 <PhotoIcon className="size-10" />
                             </div>
                         ))
-                    }
+                    } */}
                     <div className="absolute inset-0 backdrop-brightness-50 bg-black/30 flex items-center px-10">
 
                         <h2 className={`${oswald.className} text-4xl font-bold bg-gradient-to-r from-[#9dcba4] from-1% via-[#1E90FF] via-50% to-[#87CEFA] to-100% bg-clip-text text-transparent`}>MOVIO <br />Discover Movies, Anytime, Anywhere.</h2>
@@ -74,10 +74,6 @@ export default async function HomeBanner() {
                                     fill
                                     style={{ objectFit: "cover" }}
                                     priority
-                                // loading="lazy"
-                                // width={300} // TMDB size
-                                // height={450} // Maintain aspect ratio (300:450)
-                                // className="object-cover"
                                 />
                             </div>
                         ))

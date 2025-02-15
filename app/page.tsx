@@ -8,7 +8,9 @@ import { ServerHomeTrending } from './_components/ServerHomeTrending';
 import HomeHeader from './_components/HomeHeader';
 import InstallPrompt from "@/components/InstallPrompt";
 
-export default function Home() {
+export default async function Home() {
+    // await new Promise((resolve) => setTimeout(resolve, 10000));
+
     return (
         <div className="flex flex-col h-full" >
             <div className=" sticky top-0 z-20">
