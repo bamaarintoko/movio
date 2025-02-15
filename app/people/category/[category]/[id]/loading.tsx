@@ -25,14 +25,14 @@ export default function Loading() {
                         <div>
                             <p className={`${oswald.className} text-xl font-bold`}>Personal Info</p>
                         </div>
-                        <PersonalInfo label="Known For"/>
-                        <PersonalInfo label="Gender"/>
-                        <PersonalInfo label="Birthday"/>
-                        <PersonalInfo label="Place of Birth"/>
+                        <PersonalInfo label="Known For" />
+                        <PersonalInfo label="Gender" />
+                        <PersonalInfo label="Birthday" />
+                        <PersonalInfo label="Place of Birth" />
                     </div>
                     {/* ------ */}
                 </div>
-                <div className="space-y-2 p-4">
+                <div className="space-y-2 p-4 overflow-x-hidden">
                     <div className="hidden lg:flex xl:flex">
                         <div className="h-4 bg-slate-300 animate-pulse w-56 rounded-md">
 
@@ -47,6 +47,23 @@ export default function Loading() {
                             ))
                         }
                     </div>
+                    <h3 className={`${oswald.className} text-xl font-bold`}>Known For</h3>
+                    <div className="h-[250px]  overflow-x-auto flex flex-nowrap space-x-3">
+                        {
+                            Array.from({ length: 10 }).map((_, y) => (
+                                <div key={y} >
+                                    <div className="h-[195px] w-[130px] bg-slate-200 animate-pulse rounded-md">
+
+                                    </div>
+                                    {/* <LoadingImageKnownFor poster_path={x.poster_path} /> */}
+                                    <div className="flex items-center justify-center pt-1">
+                                        <div className="h-4 bg-slate-200 animate-pulse w-full rounded-md"/>
+                                        {/* <p className={`${poppins.className} text-sm line-clamp-2`}>{x.title}</p> */}
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
                 </div>
 
                 {/* ----------- */}
@@ -57,7 +74,7 @@ export default function Loading() {
 type PersonalInfoProps = {
     label: string;
 }
-const PersonalInfo = ({ label,  }: PersonalInfoProps) => {
+const PersonalInfo = ({ label, }: PersonalInfoProps) => {
     return (
         <>
             <p className={`${poppins.className} font-bold`}>{label}</p>

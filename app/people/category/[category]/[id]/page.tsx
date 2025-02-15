@@ -3,7 +3,51 @@ import { oswald, poppins } from "@/lib/fonts";
 import LoadingImage from "./_components/LoadingImage";
 import LoadingImageMobile from "./_components/LoadingImageMobile";
 import { slugformatter } from "@/lib/functions";
+import Image from "next/image";
+import LoadingImageKnownFor from "./_components/LoadingImageKnownFor";
+import Biography from "./_components/Biography";
 
+interface Crew {
+    adult: boolean;
+    backdrop_path: string;
+    credit_id: string;
+    department: string;
+    genre_ids: number[];
+    id: number;
+    job: string;
+    media_type: "movie";
+    original_language: string;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    release_date: string;
+    title: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
+
+}
+interface Cast {
+    adult: boolean;
+    backdrop_path: string;
+    character: string;
+    credit_id: string;
+    genre_ids: number[];
+    id: number;
+    media_type: "movie";
+    order: number;
+    original_language: string;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    release_date: string;
+    title: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
+}
 interface PersonDetails {
     adult: boolean;
     also_known_as: string[];
@@ -25,11 +69,19 @@ type PersonDetailProps = {
     params: Promise<{ id: string }>
 }
 
+interface Credits {
+    cast: Cast[];
+    crew: Crew[];
+    id: number
+}
+
 export async function generateMetadata({ params }: PersonDetailProps) {
     const { id } = await params
     const result = id.split("-")
     const response = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}person/${result[0]}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
     const data: PersonDetails = await response.json()
+
+
     // console.log('generateMetadata : ',data)
     const metadata = {
         title: `${data.name} - Movies, Bio, and Filmography | Moovioo`,
@@ -70,13 +122,17 @@ export default async function PagePersonDetail({ params }: PersonDetailProps) {
     const result = id.split("-")
     const response = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}person/${result[0]}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
     const data: PersonDetails = await response.json()
+
+    const resonpeMovieCredit = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}person/${result[0]}/combined_credits?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&sort_by=vote_count.desc`)
+    const movieCredit: Credits = await resonpeMovieCredit.json()
+
+    console.log('movieCredit : ', movieCredit)
     return (
         <div>
             <div className=" sticky top-0 z-20">
 
                 <HomeHeader />
             </div>
-            {/* grid grid-cols-4 gap-6 px-10 py-10 */}
             <div className="grid grid-rows-auto xl:grid-cols-[300px_1fr] gap-4 lg:p-10 xl:p-10">
                 {
                     response.ok
@@ -99,16 +155,6 @@ export default async function PagePersonDetail({ params }: PersonDetailProps) {
                         </div>
                         <div className="h-[450px] w-[300px] hidden lg:flex xl:flex relative ">
                             <LoadingImage profile_path={data.profile_path} />
-                            {/* <Image
-                                priority
-                                src={`https://image.tmdb.org/t/p/w300_and_h450_smart${data.profile_path}`} // Replace with your dynamic poster path
-                                alt="Movie Poster"
-                                width={300}
-                                height={450}
-                                className="rounded-md absolute inset-0 transition-opacity opacity-0 duration-500"
-                                onLoad={(e) => e.currentTarget.classList.remove("opacity-0")}
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            /> */}
                         </div>
                         <div className="p-4 xl:p-0 lg:p-0 xl:pt-4 lg:pt-4 xl:space-y-4 lg:space-y-4 space-y-2">
                             <div>
@@ -130,7 +176,7 @@ export default async function PagePersonDetail({ params }: PersonDetailProps) {
                         </div>
                     </div>
                 }
-                <div className="space-y-2 p-4">
+                <div className="space-y-2 p-4 overflow-x-hidden">
                     <div className="hidden lg:flex xl:flex">
                         {
                             response.ok
@@ -140,14 +186,23 @@ export default async function PagePersonDetail({ params }: PersonDetailProps) {
                             </p>
                         }
                     </div>
+                    {/* biography */}
                     <h3 className={`${oswald.className} text-xl font-bold`}>Biography</h3>
-                    {
-                        response.ok
-                        &&
-                        <p className={`${poppins.className} text-sm`}>
-                            {data.biography}
-                        </p>
-                    }
+                    <Biography biography={data.biography}/>
+                    {/* known for */}
+                    <h3 className={`${oswald.className} text-xl font-bold`}>Known For</h3>
+                    <div className="h-[250px]  overflow-x-auto flex flex-nowrap space-x-3">
+                        {
+                            movieCredit.cast.map((x, y) => (
+                                <div key={y}>
+                                    <LoadingImageKnownFor poster_path={x.poster_path}/>
+                                    <div className="flex items-center justify-center pt-1">
+                                        <p className={`${poppins.className} text-sm line-clamp-2`}>{x.title}</p>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
                 </div>
             </div>
         </div>
