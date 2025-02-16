@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
 	title: "Moovioo - Discover & Explore Movies",
@@ -31,7 +32,9 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
 	themeColor: 'black',
-  }
+}
+
+
 
 export default function RootLayout({
 	children,
@@ -43,9 +46,13 @@ export default function RootLayout({
 			<body
 				className={` antialiased`}
 			>
-				<div>
 
-					{children}
+				<div>
+					<Providers>
+
+
+						{children}
+					</Providers>
 				</div>
 			</body>
 		</html>

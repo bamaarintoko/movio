@@ -15,6 +15,7 @@ export default function LoadingImageHome({ poster_path }: LoadingImageHomeProps)
                 alt="Movie Poster"
                 fill
                 style={{ objectFit: "cover" }}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className={`object-cover rounded-md transition-opacity duration-500 ${loading ? "opacity-0" : "opacity-100"}`}
                 onLoad={() => setLoading(false)}
             />

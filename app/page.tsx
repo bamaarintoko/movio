@@ -4,9 +4,9 @@ import HomeBanner from "./_components/HomeBanner";
 import HomeLatestTrailer from './_components/HomeLatestTrailer';
 import HomePopular from './_components/HomePopular';
 import HomeFreeToWatch from './_components/HomeFreeToWatch';
-import { ServerHomeTrending } from './_components/ServerHomeTrending';
 import HomeHeader from './_components/HomeHeader';
 import InstallPrompt from "@/components/InstallPrompt";
+import HomeTrending from "./_components/HomeTrending";
 
 export default async function Home() {
     // await new Promise((resolve) => setTimeout(resolve, 10000));
@@ -19,11 +19,11 @@ export default async function Home() {
             {/* <div className="overflow-y-auto"> */}
 
             <HomeBanner />
-            <ServerHomeTrending />
+            <HomeTrending />
             <HomeLatestTrailer />
             <HomePopular />
             <HomeFreeToWatch />
-            <InstallPrompt/>
+            <InstallPrompt />
             {/* </div> */}
 
         </div >

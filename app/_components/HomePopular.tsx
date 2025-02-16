@@ -1,8 +1,11 @@
 'use client'
 import { oswald, poppins } from "@/lib/fonts";
 import Selector from "./Selector";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import HomePending from "./HomePending";
+import { motion } from "motion/react"
+import LoadingImageHome from "./LoadingImageHome";
 
 interface Movie {
     adult: boolean;
@@ -60,64 +63,53 @@ const selectorArr = [
         value: INTHEATERS
     }
 ]
-export default function HomePopular() {
-    const [populars, setPopulars] = useState<Movie[]>([])
-    // const res = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}movie/popular?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`)
-    // const data: ApiResponse = await res.json();
 
-    useEffect(() => {
-        fetchApi('movie', 8)
-    }, [])
+const fetchHomePopular = async (endpoint: string): Promise<ApiResponse> => {
+    const url = `${endpoint}`
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Failed to fetch products");
+    return res.json();
+};
+
+export default function HomePopular() {
+    const [endpoint, setEndpoint] = useState<string>(`${process.env.NEXT_PUBLIC_TMDB_HOST}discover/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&with_watch_providers=8&watch_region=US`)
+
+    const { data, isPending, error, isError } = useQuery<ApiResponse>({
+        queryKey: ["endpoint", endpoint], // ✅ React Query refetches when category changes
+        queryFn: () => fetchHomePopular(endpoint),
+        staleTime: 5000, // ✅ Prevents frequent refetching if data is fresh
+    });
 
     const handleChange = () => (value: Selectors) => {
         switch (value.value) {
             case STREAMING:
-                fetchApi('movie', 8)
+                setEndpoint(`${process.env.NEXT_PUBLIC_TMDB_HOST}discover/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&with_watch_providers=8&watch_region=US`)
                 break;
             case ONTV:
-                fetchApi('tv', 15)
+                setEndpoint(`${process.env.NEXT_PUBLIC_TMDB_HOST}discover/tv?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&with_watch_providers=15&watch_region=US`)
                 break;
             case FORRENT:
-                fetchApi('movie', 10)
+                setEndpoint(`${process.env.NEXT_PUBLIC_TMDB_HOST}discover/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&with_watch_providers=10&watch_region=US`)
                 break;
             default:
-                fetchInTheaters()
+                setEndpoint(`${process.env.NEXT_PUBLIC_TMDB_HOST}movie/now_playing?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&page=1`)
                 break;
         }
     }
 
-    const fetchApi = async (params: string, providers: number) => {
-        console.log('params : ', params)
-        console.log('providers : ', providers)
-        try {
-            const moviesResponse = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}discover/${params}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&with_watch_providers=${providers}&watch_region=US`);
-            const movieData: ApiResponse = await moviesResponse.json()
-            if (moviesResponse.ok) {
-                // console.log('----- ', movieData.results)
-                setPopulars(movieData.results)
-            }
-            // console.log("movieData : ", movieData)
-        } catch (error) {
-            console.log('error : ', error)
-        }
+    if (isPending) {
+        return <HomePending label="What&apos;s Popular" />
     }
 
-    const fetchInTheaters = async () => {
-        try {
-            const theatersResponse = await fetch(`${process.env.NEXT_PUBLIC_TMDB_HOST}movie/now_playing?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&page=1`)
-            const theatersData: ApiResponse = await theatersResponse.json()
-            if (theatersResponse.ok) {
-                setPopulars(theatersData.results)
-            }
-            // console.log('theatersData : ', theatersData)
-        } catch (error) {
-            console.log('error : ', error)
-        }
+    if (isError) {
+        return <span>Error: {error.message}</span>
     }
+
     return (
         <div className="w-full">
             <div className="2xl:max-w-[1280px] mx-auto h-auto lg:flex justify-center-center flex-col" >
-                <div className="flex gap-4 lg:px-10 xl:px-10 2xl:px-10 px-4 py-6">
+                <div className="flex gap-4 lg:px-10 xl:px-10 2xl:px-10 px-4 py-3">
                     <p className={`${oswald.className} text-2xl`}>
 
                         What&apos;s Popular
@@ -127,18 +119,19 @@ export default function HomePopular() {
                 <div>
 
                     <div className="w-full flex overflow-x-auto flex-nowrap space-x-5 lg:px-10 xl:px-10 2xl:px-10 px-4">
-                        {populars.map((x, y) => (
-                            <div key={y} className="w-36 flex-shrink-0">
-                                <div key={y} className="relative">
-                                    <Image
+                        {data.results.map((x, y) => (
+                            <div key={y} className="w-36 flex-shrink-0 mt-3 space-y-1">
+                                <motion.div whileHover={{ scale: 1.05 }} key={y} className="relative h-56">
+                                    <LoadingImageHome poster_path={x.poster_path} />
+                                    {/* <Image
                                         priority
                                         src={`https://image.tmdb.org/t/p/w220_and_h330_smart${x.poster_path}`} // Replace with your dynamic poster path
                                         alt="Movie Poster"
                                         width={150} // TMDB size
                                         height={225} // Maintain aspect ratio (300:450)
                                         className="object-cover rounded-md"
-                                    />
-                                </div>
+                                    /> */}
+                                </motion.div>
                                 <div>
                                     <p className={`${poppins.className} font-bold text-sm line-clamp-2`}>
 
