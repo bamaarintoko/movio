@@ -74,6 +74,10 @@ export default async function HomeBanner() {
                                     fill
                                     style={{ objectFit: "cover" }}
                                     priority
+                                    // width={260}
+                                    // height={450}
+                                    // loading="lazy"
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 />
                             </div>
                         ))
@@ -84,7 +88,7 @@ export default async function HomeBanner() {
                     </div>
                 </div>
                 <div className="grid grid-cols-2 absolute left-0 right-0 lg:hidden xl:hidden 2xl:hidden overflow-hidden h-[27rem] ">
-                   
+
                     {
                         Array.from({ length: 6 }).map((_, y: number) => (
                             <div key={y} className="flex items-center justify-center  h-36 w-full animate-pulse">
@@ -110,7 +114,8 @@ export default async function HomeBanner() {
                                         alt="Movie Poster"
                                         fill
                                         style={{ objectFit: "cover" }}
-                                        priority
+                                        loading="lazy"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     />
                                 </div>
                             ))

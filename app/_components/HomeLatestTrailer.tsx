@@ -321,7 +321,7 @@ export default function HomeLatestTrailer() {
                                 <div key={y} className="w-72 flex-shrink-0">
                                     <div className="relative h-40">
                                         <Image
-                                            priority
+                                            loading="lazy"
                                             src={`https://image.tmdb.org/t/p/w355_and_h200_smart${data.backdrop_path}`} // Replace with your dynamic poster path
                                             alt="Movie Poster"
                                             fill
