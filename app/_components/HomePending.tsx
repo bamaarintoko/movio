@@ -17,10 +17,10 @@ export default function HomePending({ label }: HomePendingProps) {
                 <div className="w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4 h-[calc(14rem+4rem)] overflow-y-hidden">
                     {Array.from({ length: 20 }).map((x, y) => (
                         <div key={y} className="w-36 flex-shrink-0 mt-3 space-y-1">
-                            <div className="relative h-56 bg-slate-200 animate-pulse">
+                            <div className="relative h-56 bg-slate-200 animate-pulse rounded-md">
                             </div>
                             <div className=" h-14">
-                                <div className="h-2 bg-slate-200 animate-pulse" />
+                                <div className="h-2 bg-slate-200 animate-pulse rounded-md" />
                             </div>
                         </div>
                     ))}
