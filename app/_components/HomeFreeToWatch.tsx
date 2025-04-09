@@ -63,7 +63,7 @@ const fetchFreeToWatch = async (params: string): Promise<ApiResponse> => {
 export default function HomeFreeToWatch() {
     const [category, setCategory] = useState<string>(MOVIES)
 
-    const { data, isPending, error, isError } = useQuery<ApiResponse>({
+    const { data, isPending } = useQuery<ApiResponse>({
         queryKey: ["products", category], // ✅ React Query refetches when category changes
         queryFn: () => fetchFreeToWatch(category),
         staleTime: 5000, // ✅ Prevents frequent refetching if data is fresh

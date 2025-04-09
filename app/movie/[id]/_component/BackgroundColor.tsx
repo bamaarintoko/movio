@@ -17,13 +17,14 @@ export default function BackgroundColor({ children, backdrop_path = '/ywe9S1cOyI
             .then((color) => {
                 // setHex(color.hex)
                 const resultValue = color.value
-                const x = resultValue.pop()
+                resultValue.pop()
+                // console.log("x : ",x)
                 setColor(resultValue.join())
                 console.log('resultValue : ', resultValue.join())
                 // setDominantColor(color.hex);
             })
             .catch((err) => console.error("Error fetching color:", err))
-            .finally(()=>setLoading(false));
+            .finally(() => setLoading(false));
     }, []);
 
     if (isLoading)
@@ -38,22 +39,23 @@ export default function BackgroundColor({ children, backdrop_path = '/ywe9S1cOyI
                     backgroundImage: `url(https://image.tmdb.org/t/p/${window.innerWidth >= 1280 ? 'w1920_and_h800_multi_faces' : 'w1000_and_h450_multi_faces'
                         }${backdrop_path})`,
                 }}>
-
+                {/* {children} */}
             </div>
-            {/* <div style={{
-                background: `linear-gradient(
-                    to right, 
-                    rgba(${color}, 1) 20%, 
-                    rgba(${color}, 0.1) 50%, 
-                    rgba(${color}, 0.2) 60%)`
-            }}
-                className={`absolute inset-0 z-0 block md:hidden`}></div> */}
             <div style={{
                 background: `linear-gradient(
-                    to right, 
-                    rgba(${color}, 1) 20%, 
-                    rgba(${color}, 0.84) 80%, 
-                    rgba(${color}, 0.84) 100%)`
+                    to right,
+                    rgba(${color}, 1) 20%,
+                    rgba(${color}, 0.1) 50%,
+                    rgba(${color}, 0.2) 60%)`
+            }}
+                className={`absolute inset-0 z-0 block md:hidden`}></div>
+
+            <div style={{
+                background: `linear-gradient(
+                        to right, 
+                        rgba(${color}, 1) 20%, 
+                        rgba(${color}, 0.84) 80%, 
+                        rgba(${color}, 0.84) 100%)`
             }}
                 className={`absolute inset-0 z-0 hidden md:block`}></div>
 

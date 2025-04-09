@@ -46,7 +46,7 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
         <div>
             <HomeHeader />
             <BackgroundColor backdrop_path={data.backdrop_path}>
-
+                adsadasdasdsa
             </BackgroundColor>
         </div>
     )

@@ -77,7 +77,7 @@ export default function HomePopular() {
     const [endpoint, setEndpoint] = useState<string>(`${process.env.NEXT_PUBLIC_TMDB_HOST}discover/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&with_watch_providers=8&watch_region=US`)
     const router = useRouter()
 
-    const { data, isPending, error, isError } = useQuery<ApiResponse>({
+    const { data, isPending } = useQuery<ApiResponse>({
         queryKey: ["endpoint", endpoint], // ✅ React Query refetches when category changes
         queryFn: () => fetchHomePopular(endpoint),
         staleTime: 5000, // ✅ Prevents frequent refetching if data is fresh
