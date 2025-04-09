@@ -3,7 +3,6 @@ import { oswald, poppins } from "@/lib/fonts";
 import Selector from "./Selector";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import HomeLatestTrailerPending from "./HomeLatestTrailerPending";
 import LoadingImageHomeLatestTrailer from "./LoadingImageHomeLatestTrailer";
 
 interface Movie {
@@ -235,9 +234,9 @@ export default function HomeLatestTrailer() {
 
 
     // console.log('trailers : ', trailers)
-    if (isPending) {
-        return <HomeLatestTrailerPending />
-    }
+    // if (isPending) {
+    //     return <HomeLatestTrailerPending />
+    // }
 
     if (isError) {
         return <span>Error: {error.message}</span>
@@ -258,6 +257,21 @@ export default function HomeLatestTrailer() {
 
                     <div className="w-full flex overflow-x-auto flex-nowrap space-x-5 lg:px-10 xl:px-10 2xl:px-10 px-4">
                         {
+                            isPending
+                            &&
+                            Array.from({ length: 20 }).map((data, y) => (
+                                <div key={y} className="w-72 flex-shrink-0 ">
+                                    <div className="relative h-40 animate-pulse bg-slate-200 rounded-md">
+
+                                    </div>
+                                    <div className="h-14 py-2 space-y-2">
+                                        <div className="h-2 animate-pulse bg-slate-200 rounded-md" />
+                                        <div className="h-2 animate-pulse bg-slate-200 rounded-md" />
+                                    </div>
+                                </div>
+                            ))
+                        }
+                        {!isPending &&
                             data.results.map((data, y) => (
                                 <div key={y} className="w-72 flex-shrink-0">
                                     <LoadingImageHomeLatestTrailer backdrop_path={data.backdrop_path} />

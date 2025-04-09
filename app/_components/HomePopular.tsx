@@ -3,9 +3,10 @@ import { oswald, poppins } from "@/lib/fonts";
 import Selector from "./Selector";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import HomePending from "./HomePending";
 import { motion } from "motion/react"
 import LoadingImageHome from "./LoadingImageHome";
+import { slugformatter } from "@/lib/functions";
+import { useRouter } from "next/navigation";
 
 interface Movie {
     adult: boolean;
@@ -74,6 +75,7 @@ const fetchHomePopular = async (endpoint: string): Promise<ApiResponse> => {
 
 export default function HomePopular() {
     const [endpoint, setEndpoint] = useState<string>(`${process.env.NEXT_PUBLIC_TMDB_HOST}discover/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&with_watch_providers=8&watch_region=US`)
+    const router = useRouter()
 
     const { data, isPending, error, isError } = useQuery<ApiResponse>({
         queryKey: ["endpoint", endpoint], // ✅ React Query refetches when category changes
@@ -98,13 +100,19 @@ export default function HomePopular() {
         }
     }
 
-    if (isPending) {
-        return <HomePending label="What&apos;s Popular" />
+    const handleDetail = (id: number, title: string) => {
+        const newId = id + "-" + slugformatter(title)
+        console.log('id : ', newId)
+        router.push(`movie/${newId}`)
     }
 
-    if (isError) {
-        return <span>Error: {error.message}</span>
-    }
+    // if (isPending) {
+    //     return <HomePending label="What&apos;s Popular" />
+    // }
+
+    // if (isError) {
+    //     return <span>Error: {error.message}</span>
+    // }
 
     return (
         <div className="w-full">
@@ -119,18 +127,24 @@ export default function HomePopular() {
                 <div>
 
                     <div className="w-full flex overflow-x-auto flex-nowrap space-x-5 lg:px-10 xl:px-10 2xl:px-10 px-4">
-                        {data.results.map((x, y) => (
-                            <div key={y} className="w-36 flex-shrink-0 mt-3 space-y-1">
+                        {
+                            isPending
+                            &&
+                            Array.from({ length: 20 }).map((x, y) => (
+                                <div key={y} className="w-36 flex-shrink-0 mt-3 space-y-1">
+                                    <div className="relative h-56 bg-slate-200 animate-pulse rounded-md">
+                                    </div>
+                                    <div className=" h-14">
+                                        <div className="h-2 bg-slate-200 animate-pulse rounded-md" />
+                                    </div>
+                                </div>
+                            ))
+                        }
+
+                        {data && data.results.map((x, y) => (
+                            <div onClick={() => handleDetail(x.id, x.title)} key={y} className="w-36 flex-shrink-0 mt-3 space-y-1 cursor-pointer">
                                 <motion.div whileHover={{ scale: 1.05 }} key={y} className="relative h-56">
                                     <LoadingImageHome poster_path={x.poster_path} />
-                                    {/* <Image
-                                        priority
-                                        src={`https://image.tmdb.org/t/p/w220_and_h330_smart${x.poster_path}`} // Replace with your dynamic poster path
-                                        alt="Movie Poster"
-                                        width={150} // TMDB size
-                                        height={225} // Maintain aspect ratio (300:450)
-                                        className="object-cover rounded-md"
-                                    /> */}
                                 </motion.div>
                                 <div>
                                     <p className={`${poppins.className} font-bold text-sm line-clamp-2`}>

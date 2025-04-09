@@ -5,7 +5,6 @@ import { useState } from "react";
 import { motion } from "motion/react"
 import { useQuery } from "@tanstack/react-query";
 import LoadingImageHome from "./LoadingImageHome";
-import HomePending from "./HomePending";
 interface Movie {
     adult: boolean;
     backdrop_path: string;
@@ -81,13 +80,13 @@ export default function HomeFreeToWatch() {
                 break;
         }
     }
-    if (isPending) {
-        return <HomePending label="Free To Watch" />
-    }
+    // if (isPending) {
+    //     return <HomePending label="Free To Watch" />
+    // }
 
-    if (isError) {
-        return <span>Error: {error.message}</span>
-    }
+    // if (isError) {
+    //     return <span>Error: {error.message}</span>
+    // }
     return (
         <div className="w-full">
             <div className="2xl:max-w-[1280px] mx-auto h-auto lg:flex justify-center-center flex-col" >
@@ -102,18 +101,23 @@ export default function HomeFreeToWatch() {
                 <div className="relative h-[calc(14rem+4rem)]">
 
                     <div className="w-full flex overflow-x-auto flex-nowrap lg:space-x-5 xl:space-x-5 2xl:space-x-5 space-x-4 lg:px-10 xl:px-10 2xl:px-10 px-4 h-[calc(14rem+4rem)] overflow-y-hidden">
-                        {data.results.map((x, y) => (
+                        {
+                            isPending
+                            &&
+                            Array.from({ length: 20 }).map((x, y) => (
+                                <div key={y} className="w-36 flex-shrink-0 mt-3 space-y-1">
+                                    <div className="relative h-56 bg-slate-200 animate-pulse rounded-md">
+                                    </div>
+                                    <div className=" h-14">
+                                        <div className="h-2 bg-slate-200 animate-pulse rounded-md" />
+                                    </div>
+                                </div>
+                            ))
+                        }
+                        {data && data.results.map((x, y) => (
                             <div key={y} className="w-36 flex-shrink-0 mt-3 space-y-1">
                                 <motion.div whileHover={{ scale: 1.05 }} key={y} className="relative h-56">
                                     <LoadingImageHome poster_path={x.poster_path} />
-                                    {/* <Image
-                                        priority
-                                        src={`https://image.tmdb.org/t/p/w220_and_h330_smart${x.poster_path}`} // Replace with your dynamic poster path
-                                        alt="Movie Poster"
-                                        fill
-                                        style={{ objectFit: "cover" }}
-                                        className="object-cover rounded-md"
-                                    /> */}
                                 </motion.div>
                                 <div className=" h-14">
                                     <p className={`${poppins.className} font-bold text-sm line-clamp-2`}>
