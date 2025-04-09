@@ -39,7 +39,7 @@ export default function BackgroundColor({ children, backdrop_path = '/ywe9S1cOyI
                     backgroundImage: `url(https://image.tmdb.org/t/p/${window.innerWidth >= 1280 ? 'w1920_and_h800_multi_faces' : 'w1000_and_h450_multi_faces'
                         }${backdrop_path})`,
                 }}>
-                {/* {children} */}
+                {children}
             </div>
             <div style={{
                 background: `linear-gradient(
